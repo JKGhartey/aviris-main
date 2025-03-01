@@ -52,7 +52,7 @@ export function Navbar({ onMenuClick }: NavbarProps) {
 
         <div className="mr-4 hidden md:flex">
           <Link
-            href={routes.home}
+            href={routes.landing as string}
             className="mr-14 flex items-center space-x-2"
           >
             <MemoizedLogo />

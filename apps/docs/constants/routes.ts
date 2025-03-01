@@ -1,6 +1,10 @@
 export const routes = {
   home: "/",
   github: "https://github.com/jkghartey/aviris",
+  landing:
+    process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_APP_LANDING_URL
+      : "http://localhost:3000",
   docs: {
     root: "/",
     installation: "/installation",
@@ -27,9 +31,5 @@ export const routes = {
       contributing: "/guides/contributing",
       deployment: "/guides/deployment",
     },
-    landing:
-      process.env.NODE_ENV === "production"
-        ? process.env.NEXT_PUBLIC_APP_LANDING_URL
-        : "http://localhost:3000",
   },
 } as const;
