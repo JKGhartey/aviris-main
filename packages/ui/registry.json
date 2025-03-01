@@ -1,0 +1,112 @@
+{
+  "name": "@aviris/ui",
+  "version": "0.0.0",
+  "description": "A collection of high-quality React components built on top of shadcn/ui",
+  "components": {
+    "core": {
+      "file-upload": {
+        "name": "FileUpload",
+        "description": "Advanced file upload component with drag and drop support",
+        "type": "input",
+        "status": "stable",
+        "hasTests": false,
+        "source": "/components/file-upload.tsx",
+        "features": [
+          "Drag and drop support",
+          "Multiple file upload",
+          "Progress tracking",
+          "File type validation",
+          "Image preview"
+        ],
+        "dependencies": ["lucide-react"],
+        "exports": ["FileUpload", "FilePreview", "useFileUpload"]
+      }
+    },
+    "custom": {
+      "job-application": {
+        "name": "JobApplication",
+        "description": "A customizable job application form with multi-step wizard",
+        "type": "form",
+        "status": "planned",
+        "hasTests": false,
+        "source": "/components/custom/job-application/index.tsx",
+        "features": [
+          "Multi-step form wizard",
+          "File upload for resume/CV",
+          "Form validation",
+          "Progress tracking",
+          "Mobile responsive"
+        ],
+        "dependencies": ["@hookform/resolvers", "react-hook-form", "zod"],
+        "exports": ["JobApplication", "JobApplicationForm", "useJobApplication"]
+      },
+      "kanban-board": {
+        "name": "KanbanBoard",
+        "description": "Drag and drop kanban board for task management",
+        "type": "interactive",
+        "status": "planned",
+        "hasTests": false,
+        "source": "/components/custom/kanban-board/index.tsx",
+        "features": [
+          "Drag and drop columns and cards",
+          "Custom card templates",
+          "Column management",
+          "Task filtering and search",
+          "Progress tracking"
+        ],
+        "dependencies": ["@dnd-kit/core", "@dnd-kit/sortable"],
+        "exports": ["KanbanBoard", "KanbanColumn", "KanbanCard"]
+      }
+    },
+    "widget": {
+      "analytics-dashboard": {
+        "name": "AnalyticsDashboard",
+        "description": "Analytics dashboard with charts and data visualization",
+        "type": "data",
+        "status": "planned",
+        "hasTests": false,
+        "source": "/components/widget/analytics-dashboard/index.tsx",
+        "features": [
+          "Multiple chart types",
+          "Real-time data updates",
+          "Customizable time ranges",
+          "Export functionality",
+          "Responsive design"
+        ],
+        "dependencies": ["recharts", "date-fns"],
+        "exports": ["AnalyticsDashboard", "AnalyticsChart", "useAnalyticsData"]
+      },
+      "file-upload": {
+        "name": "FileUpload",
+        "description": "Advanced file upload widget with drag and drop support",
+        "type": "input",
+        "status": "planned",
+        "hasTests": false,
+        "source": "/components/widget/file-upload/index.tsx",
+        "features": [
+          "Drag and drop support",
+          "Multiple file upload",
+          "Progress tracking",
+          "File type validation",
+          "Image preview"
+        ],
+        "dependencies": [],
+        "exports": ["FileUpload", "FilePreview", "useFileUpload"]
+      }
+    }
+  },
+  "categories": {
+    "core": "Essential components that form the foundation of the UI library",
+    "form": "Form-based components with validation and state management",
+    "interactive": "Components with rich user interactions",
+    "data": "Data visualization and analytics components",
+    "input": "Enhanced input components with advanced features"
+  },
+  "statuses": {
+    "planned": "Component is planned but not yet implemented",
+    "in-progress": "Component is currently being developed",
+    "beta": "Component is in beta testing phase",
+    "stable": "Component is stable and ready for production use",
+    "deprecated": "Component is deprecated and will be removed in future versions"
+  }
+}
