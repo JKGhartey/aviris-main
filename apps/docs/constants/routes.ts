@@ -27,5 +27,6 @@ export const routes = {
       contributing: "/guides/contributing",
       deployment: "/guides/deployment",
     },
+    landing: process.env.NEXT_PUBLIC_APP_LANDING_URL || "http://localhost:3000",
   },
 } as const;

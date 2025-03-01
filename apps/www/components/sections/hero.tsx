@@ -6,6 +6,7 @@ import { Stats } from "@aviris/ui/components/stats";
 import { Badge } from "@aviris/ui/components/badge";
 import { CustomButton } from "@aviris/ui/components/custom-button";
 import { Zap } from "lucide-react";
+import { routes } from "~/constants/routes";
 
 const container = {
   hidden: { opacity: 0 },
@@ -185,13 +186,13 @@ export function Hero() {
             variants={item}
             className="flex flex-wrap items-center justify-center gap-4"
           >
-            <Link href="/components">
+            <Link href={routes.docs_app}>
               <CustomButton size="lg" className="relative group px-8 h-12">
                 <span className="relative z-10">Explore Components</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary opacity-0 group-hover:opacity-100 transition-opacity rounded-md" />
               </CustomButton>
             </Link>
-            <Link href="/docs">
+            <Link href="#">
               <CustomButton
                 variant="outline"
                 size="lg"
