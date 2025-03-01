@@ -51,7 +51,7 @@ export function Logo({
   const currentColor = color ?? (resolvedTheme === "dark" ? "white" : "black");
 
   return (
-    <Link href="/" className={cn("flex items-center gap-3", className)}>
+    <div className={cn("flex items-center gap-3", className)}>
       {variant === "logo" ? (
         <>
           <svg
@@ -105,6 +105,6 @@ export function Logo({
           </g>
         </svg>
       )}
-    </Link>
+    </div>
   );
 }

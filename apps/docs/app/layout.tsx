@@ -57,7 +57,7 @@ export default function RootLayout({
               <SheetHeader className="border-b px-6 pb-4">
                 <SheetTitle>
                   <Link
-                    href={routes.home}
+                    href={routes.landing as string}
                     className="flex items-center gap-2 font-bold"
                     onClick={() => setIsOpen(false)}
                   >
@@ -76,7 +76,7 @@ export default function RootLayout({
             </SheetContent>
           </Sheet>
 
-          <div className="container flex-1 items-start md:grid md:grid-cols-[220px_1fr] lg:grid-cols-[240px_1fr_200px] lg:gap-10">
+          <div className="container flex-1 items-start md:grid md:grid-cols-[200px_minmax(0,1fr)] lg:grid-cols-[220px_minmax(0,1fr)_180px] lg:gap-8">
             {/* Desktop Sidebar */}
             <aside className="fixed top-14 z-30 -ml-2 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 overflow-y-auto border-r md:sticky md:block">
               <ScrollArea className="h-full py-6 pr-6 lg:py-8">

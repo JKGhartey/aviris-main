@@ -20,6 +20,21 @@
         ],
         "dependencies": ["lucide-react"],
         "exports": ["FileUpload", "FilePreview", "useFileUpload"]
+      },
+      "api-table": {
+        "name": "APITable",
+        "description": "A table component for displaying API data",
+        "type": "data",
+        "status": "planned",
+        "hasTests": false,
+        "source": "/components/core/APITable.tsx",
+        "features": [
+          "Display API data in a table format",
+          "Sortable columns",
+          "Searchable data"
+        ],
+        "dependencies": ["lucide-react"],
+        "exports": ["APITable", "APITableHeader", "APITableRow", "APITableCell"]
       }
     },
     "custom": {
