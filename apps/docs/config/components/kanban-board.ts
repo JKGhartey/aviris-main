@@ -8,9 +8,6 @@ export const kanbanBoardConfig: ComponentDoc = {
   status: "beta",
   icon: Layout,
   metadata: {
-    version: "1.0.0",
-    package: "@aviris/ui/components/kanban-board",
-    author: "Aviris Team",
     sourceUrl: "https://github.com/aviris/components/tree/main/kanban-board",
     dependencies: [
       "react-beautiful-dnd@^13.1.1",
