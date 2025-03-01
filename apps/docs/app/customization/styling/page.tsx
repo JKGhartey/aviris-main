@@ -10,7 +10,7 @@ import { Info } from "lucide-react";
 
 export default function StylingPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <div className="space-y-4">
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight">
           Styling
@@ -96,18 +96,20 @@ const buttonVariants = cva(
           />
         </section>
 
-        <Alert>
-          <Info className="h-4 w-4" />
-          <AlertTitle>Best Practices</AlertTitle>
-          <AlertDescription>
-            <ul className="list-disc pl-4 space-y-2 mt-2">
-              <li>Use CSS variables for global design tokens</li>
-              <li>Create reusable utility classes for common patterns</li>
-              <li>Extend the Tailwind theme for custom values</li>
-              <li>Use variants for consistent component styling</li>
-            </ul>
-          </AlertDescription>
-        </Alert>
+        <div className="mt-10">
+          <Alert>
+            <Info className="h-4 w-4" />
+            <AlertTitle>Best Practices</AlertTitle>
+            <AlertDescription>
+              <ul className="list-disc pl-4 space-y-2 mt-2">
+                <li>Use CSS variables for global design tokens</li>
+                <li>Create reusable utility classes for common patterns</li>
+                <li>Extend the Tailwind theme for custom values</li>
+                <li>Use variants for consistent component styling</li>
+              </ul>
+            </AlertDescription>
+          </Alert>
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { cn } from "../lib/utils";
 import { CopyButton } from "./copy-button";
 import { Button } from "./ui/button";
 import { ChevronDown } from "lucide-react";
+import { ScrollArea } from "./ui/scroll-area";
 
 interface CodeBlockProps {
   code: string;
@@ -35,7 +36,7 @@ export function CodeBlock({
   }, [code, maxHeight, expandable]);
 
   return (
-    <div className={cn("relative rounded-md group", className)}>
+    <div className={cn("relative rounded-lg overflow-hidden", className)}>
       <div className="absolute right-2 top-2 z-20">
         <CopyButton value={code} />
       </div>
@@ -48,25 +49,44 @@ export function CodeBlock({
         )}
         style={{ "--max-h": `${maxHeight}px` } as React.CSSProperties}
       >
-        <SyntaxHighlighter
-          language={language}
-          style={oneDark}
-          showLineNumbers={showLineNumbers}
-          customStyle={{
-            margin: 0,
-            borderRadius: "0.375rem",
-            fontSize: "0.875rem",
-            lineHeight: "1.5rem",
-          }}
-          codeTagProps={{
-            className: "font-mono",
-          }}
-        >
-          {code}
-        </SyntaxHighlighter>
+        <ScrollArea className="rounded-lg" type="always">
+          <SyntaxHighlighter
+            language={language}
+            style={oneDark}
+            showLineNumbers={showLineNumbers}
+            wrapLongLines={true}
+            customStyle={{
+              margin: 0,
+              background: "hsl(var(--muted))",
+              fontSize: "0.875rem",
+              lineHeight: "1.5rem",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              width: "100%",
+              padding: "1rem",
+            }}
+            codeTagProps={{
+              className: "font-mono",
+              style: {
+                whiteSpace: "pre-wrap",
+                display: "block",
+              },
+            }}
+          >
+            {code}
+          </SyntaxHighlighter>
+        </ScrollArea>
 
         {shouldShowExpand && !isExpanded && (
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
+          <div
+            className="absolute inset-x-0 -bottom-5 h-32 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to bottom, transparent, hsl(var(--background)) 80%)",
+              maskImage:
+                "linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8))",
+            }}
+          />
         )}
       </div>
 
@@ -78,7 +98,8 @@ export function CodeBlock({
             "absolute left-1/2 -translate-x-1/2 z-10",
             "text-muted-foreground hover:text-foreground",
             "transition-all duration-200",
-            isExpanded ? "bottom-2" : "bottom-4",
+            "bg-background/80 backdrop-blur-sm",
+            "bottom-4",
           )}
           onClick={() => setIsExpanded(!isExpanded)}
         >
