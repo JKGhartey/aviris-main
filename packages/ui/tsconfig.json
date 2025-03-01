@@ -6,6 +6,11 @@
       "@aviris/ui/*": ["./src/*"]
     }
   },
-  "include": ["src", "../../apps/docs/components/TableOfContents.tsx"],
+  "include": [
+    "src",
+    "../../apps/docs/components/TableOfContents.tsx",
+    "src/components/code-block.tsx",
+    "components/ui/copy-button.tsx"
+  ],
   "exclude": ["node_modules"]
 }
