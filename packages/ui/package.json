@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@aviris/eslint-config": "workspace:*",
-    "@aviris/typescript-config": "^0.0.0",
+    "@aviris/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:react18",
     "autoprefixer": "^10",
@@ -21,10 +21,13 @@
     "typescript": "catalog:"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cmdk": "1.0.0",
     "lucide-react": "catalog:",
+    "next": "14.2.8",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -37,6 +40,7 @@
       "./src/hooks/*.ts",
       "./src/hooks/*.tsx"
     ],
+    "./theme": "./src/theme/index.ts",
     "./components/*": "./src/components/*.tsx"
   }
 }
