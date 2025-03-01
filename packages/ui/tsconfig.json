@@ -10,7 +10,7 @@
     "src",
     "../../apps/docs/components/TableOfContents.tsx",
     "src/components/code-block.tsx",
-    "components/ui/copy-button.tsx"
+    "src/components/copy-button.tsx"
   ],
   "exclude": ["node_modules"]
 }

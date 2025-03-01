@@ -1,4 +1,3 @@
-import { FileUp } from "lucide-react";
 import { ComponentDoc } from "../types";
 
 export const fileUploadConfig: ComponentDoc = {
@@ -6,7 +5,6 @@ export const fileUploadConfig: ComponentDoc = {
   description:
     "A versatile file upload component with drag and drop support, file validation, and progress tracking.",
   status: "stable",
-  icon: FileUp,
   examples: [
     {
       title: "Basic Example",

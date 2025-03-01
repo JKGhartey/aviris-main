@@ -151,7 +151,7 @@ export function Hero() {
           {/* Title */}
           <motion.div
             variants={titleContainer}
-            className="space-y-4 text-center max-w-3xl"
+            className="space-y-4 text-center max-w-4xl"
           >
             <h1 className="text-3xl font-bold tracking-tight sm:text-6xl md:text-7xl">
               <div className="overflow-hidden">

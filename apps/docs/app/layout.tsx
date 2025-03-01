@@ -76,16 +76,16 @@ export default function RootLayout({
             </SheetContent>
           </Sheet>
 
-          <div className="container flex-1 items-start md:grid md:grid-cols-[200px_minmax(0,1fr)] lg:grid-cols-[220px_minmax(0,1fr)_180px] lg:gap-8">
+          <div className="mx-auto flex-1 items-start px-4 md:px-6 lg:px-8 xl:px-10 max-w-[1480px] md:grid md:grid-cols-[240px_minmax(0,1fr)] lg:grid-cols-[280px_minmax(0,1fr)_200px] lg:gap-10">
             {/* Desktop Sidebar */}
             <aside className="fixed top-14 z-30 -ml-2 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 overflow-y-auto border-r md:sticky md:block">
-              <ScrollArea className="h-full py-6 pr-6 lg:py-8">
+              <ScrollArea className="h-full py-6 pr-8 lg:py-8">
                 <DocsSidebar items={docsConfig.sidebarNav} />
               </ScrollArea>
             </aside>
 
             {/* Main Content */}
-            <main className="relative min-h-screen w-full py-6 lg:gap-10 lg:py-8 xl:px-8">
+            <main className="relative min-h-screen w-full py-6 lg:gap-10 lg:py-8">
               <div className="mx-auto w-full min-w-0">{children}</div>
             </main>
 

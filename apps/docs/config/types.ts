@@ -1,4 +1,3 @@
-import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 
 export interface CodeExample {
@@ -20,7 +19,6 @@ export interface ComponentDoc {
   name: string;
   description: string;
   status: "stable" | "beta" | "coming-soon";
-  icon: LucideIcon;
   examples: CodeExample[];
   props: ComponentProp[];
   metadata?: {
