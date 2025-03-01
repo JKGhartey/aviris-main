@@ -1,4 +1,4 @@
-import { LucideIcon, FileUp, Briefcase, Layout, BarChart } from "lucide-react";
+import { LucideIcon, FileUp, Briefcase, Layout } from "lucide-react";
 
 export interface CodeExample {
   title: string;

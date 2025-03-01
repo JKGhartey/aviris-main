@@ -1,10 +1,10 @@
 "use client";
 
 import { Card } from "@aviris/ui/components/ui/card";
-import { Badge } from "@aviris/ui/components/ui/badge";
 import { DocsPager } from "~/components/DocsPager";
 import { getAllComponents } from "~/config/registry";
 import Link from "next/link";
+import { StatusBadge } from "@aviris/ui/components/badge-custom";
 
 export default function ComponentsPage() {
   const components = getAllComponents();
@@ -41,18 +41,12 @@ export default function ComponentsPage() {
                   </p>
                 </div>
                 <div className="pt-4">
-                  <Badge
-                    variant={
-                      component.status === "stable"
-                        ? "default"
-                        : component.status === "beta"
-                          ? "secondary"
-                          : "outline"
-                    }
-                    className="font-medium"
+                  <StatusBadge
+                    variant={component.status}
+                    className="capitalize"
                   >
                     {component.status}
-                  </Badge>
+                  </StatusBadge>
                 </div>
               </div>
             </Card>
