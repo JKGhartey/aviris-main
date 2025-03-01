@@ -151,7 +151,7 @@ export function Hero() {
           {/* Title */}
           <motion.div
             variants={titleContainer}
-            className="space-y-4 text-center max-w-md"
+            className="space-y-4 text-center max-w-4xl"
           >
             <h1 className="text-3xl font-bold tracking-tight sm:text-6xl md:text-7xl">
               <div className="overflow-hidden">
@@ -173,7 +173,7 @@ export function Hero() {
             </h1>
             <motion.p
               variants={item}
-              className="mx-auto text-lg sm:text-xl text-muted-foreground"
+              className="mx-auto max-w-2xl text-lg sm:text-xl text-muted-foreground"
             >
               Premium React components that combine the power of shadcn/ui with
               enhanced features. Ship faster with ready-to-use, customizable
