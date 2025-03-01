@@ -1,4 +1,3 @@
-import { Layout } from "lucide-react";
 import { ComponentDoc } from "../types";
 
 export const kanbanBoardConfig: ComponentDoc = {
@@ -6,7 +5,6 @@ export const kanbanBoardConfig: ComponentDoc = {
   description:
     "A flexible drag-and-drop Kanban board component for task management and workflow visualization. Built with react-beautiful-dnd for smooth interactions.",
   status: "beta",
-  icon: Layout,
   metadata: {
     sourceUrl: "https://github.com/aviris/components/tree/main/kanban-board",
     dependencies: [

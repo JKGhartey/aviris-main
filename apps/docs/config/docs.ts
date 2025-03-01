@@ -1,15 +1,6 @@
-import { routes } from "../constants/routes";
-import { LucideIcon } from "lucide-react";
-
-export interface NavItem {
-  title: string;
-  href: string;
-  disabled?: boolean;
-  badge?: string;
-  description?: string;
-  icon?: LucideIcon;
-  items?: Omit<NavItem, "items">[];
-}
+import { routes } from "~/constants/routes";
+import { NavItem } from "~/types/nav";
+import { getAllComponents } from "./registry";
 
 export interface DocsConfig {
   sidebarNav: NavItem[];
@@ -42,29 +33,11 @@ export const docsConfig: DocsConfig = {
     {
       title: "Components",
       href: routes.docs.components.root,
-      items: [
-        {
-          title: "File Upload",
-          href: routes.docs.components.fileUpload,
-          description:
-            "Advanced file upload component with drag and drop support",
-        },
-        {
-          title: "Job Application",
-          href: routes.docs.components.jobApplication,
-          description: "Multi-step job application form with validation",
-        },
-        {
-          title: "Kanban Board",
-          href: routes.docs.components.kanbanBoard,
-          description: "Drag and drop kanban board for task management",
-        },
-        {
-          title: "Analytics Dashboard",
-          href: routes.docs.components.analyticsDashboard,
-          description: "Data visualization dashboard with real-time updates",
-        },
-      ],
+      items: getAllComponents().map((component) => ({
+        title: component.name,
+        href: `/components/${component.name.toLowerCase().replace(/\s+/g, "-")}`,
+        description: component.description,
+      })),
     },
     {
       title: "Customization",
