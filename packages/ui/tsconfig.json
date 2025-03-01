@@ -6,6 +6,6 @@
       "@aviris/ui/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "../../apps/docs/components/TableOfContents.tsx"],
   "exclude": ["node_modules"]
 }
