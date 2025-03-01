@@ -6,8 +6,7 @@ node_modules
 .pnp.js
 
 # Local env files
-.env
-.env*.local
+.env*
 
 # Testing
 coverage
@@ -23,7 +22,6 @@ coverage
 out/
 build
 dist
-
 
 # Debug
 npm-debug.log*
