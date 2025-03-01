@@ -20,6 +20,7 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
     href: string;
     icon?: LucideIcon;
     badge?: string;
+    disabled?: boolean;
     items?: {
       title: string;
       href: string;
@@ -60,13 +61,17 @@ export function DocsSidebar({ items, setIsOpen }: SidebarNavProps) {
               <div key={section.href}>
                 <div className="pb-2">
                   <Link
-                    href={section.href}
-                    onClick={() => setIsOpen?.(false)}
+                    href={section.disabled ? "#" : section.href}
+                    onClick={(e) => {
+                      if (section.disabled) e.preventDefault();
+                      setIsOpen?.(false);
+                    }}
                     className={cn(
                       "group flex w-full items-center justify-between rounded-md px-2 py-2 text-sm font-medium hover:bg-muted/50",
                       isActive || isExpanded
                         ? "text-foreground"
                         : "text-muted-foreground",
+                      section.disabled && "cursor-not-allowed opacity-60",
                     )}
                   >
                     <div className="flex items-center gap-3">
@@ -98,8 +103,11 @@ export function DocsSidebar({ items, setIsOpen }: SidebarNavProps) {
                         return (
                           <Link
                             key={item.href}
-                            href={item.href}
-                            onClick={() => setIsOpen?.(false)}
+                            href={item.disabled ? "#" : item.href}
+                            onClick={(e) => {
+                              if (item.disabled) e.preventDefault();
+                              setIsOpen?.(false);
+                            }}
                             className={cn(
                               "group relative flex w-full items-center justify-between rounded-md px-2 py-1.5 text-sm transition-colors",
                               isItemActive
@@ -137,13 +145,17 @@ export function DocsSidebar({ items, setIsOpen }: SidebarNavProps) {
           return (
             <div key={section.href}>
               <Link
-                href={section.href}
-                onClick={() => setIsOpen?.(false)}
+                href={section.disabled ? "#" : section.href}
+                onClick={(e) => {
+                  if (section.disabled) e.preventDefault();
+                  setIsOpen?.(false);
+                }}
                 className={cn(
                   "group flex w-full items-center justify-between rounded-md px-2 py-2 text-sm font-medium hover:bg-muted/50",
                   isActive
                     ? "bg-accent text-accent-foreground"
                     : "text-muted-foreground hover:text-accent-foreground",
+                  section.disabled && "cursor-not-allowed opacity-60",
                 )}
               >
                 <div className="flex items-center gap-3">

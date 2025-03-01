@@ -1,15 +1,17 @@
 import { routes } from "../constants/routes";
 import { LucideIcon } from "lucide-react";
 
-interface NavItem {
+export interface NavItem {
   title: string;
   href: string;
+  disabled?: boolean;
+  badge?: string;
   description?: string;
   icon?: LucideIcon;
   items?: Omit<NavItem, "items">[];
 }
 
-interface DocsConfig {
+export interface DocsConfig {
   sidebarNav: NavItem[];
 }
 
@@ -22,18 +24,18 @@ export const docsConfig: DocsConfig = {
         {
           title: "Introduction",
           href: routes.docs.root,
-          description:
-            "Learn about Aviris UI and get started with your first component",
         },
         {
           title: "Installation",
           href: routes.docs.installation,
-          description: "How to install and set up Aviris UI in your project",
+          disabled: true,
+          badge: "Coming Soon",
         },
         {
-          title: "CLI Tool",
+          title: "CLI",
           href: routes.docs.cli,
-          description: "Using the CLI to add and manage components",
+          disabled: true,
+          badge: "Coming Soon",
         },
       ],
     },
