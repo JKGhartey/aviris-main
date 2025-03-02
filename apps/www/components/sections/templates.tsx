@@ -41,21 +41,21 @@ const templates = [
     description:
       "A modern dashboard template with authentication, dark mode, and responsive layout.",
     icons: [SiNextdotjs, SiTailwindcss, SiShadcnui],
-    href: "/templates/dashboard",
+    href: "#",
   },
   {
     title: "E-commerce Kit",
     description:
       "Complete e-commerce solution with product management, cart, and checkout functionality.",
     icons: [SiNextdotjs, SiReact, SiShadcnui],
-    href: "/templates/ecommerce",
+    href: "#",
   },
   {
     title: "Authentication Starter",
     description:
       "Ready-to-use authentication system with social logins and user management.",
     icons: [SiNextdotjs, SiTailwindcss, SiShadcnui],
-    href: "/templates/auth",
+    href: "#",
   },
 ];
 

@@ -51,10 +51,19 @@ export function ComponentPreview({
       for (const [, key, value] of propMatches) {
         if (key && value) {
           try {
+            // Safely evaluate the value
+            const safeValue = value
+              .replace(/\bauth\b/g, "null") // Replace auth references with null
+              .replace(/\{[^}]*\}/g, "{}"); // Replace object literals with empty objects
             // eslint-disable-next-line no-eval
-            props[key] = eval(value);
+            props[key] = eval(safeValue);
           } catch {
-            props[key] = value;
+            // If evaluation fails, use a safe default
+            props[key] = value.includes("[")
+              ? []
+              : value.includes("{")
+                ? {}
+                : value;
           }
         }
       }
