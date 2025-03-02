@@ -10,41 +10,7 @@ export const apiTableConfig: ComponentDoc = {
       title: "Default",
       description:
         "A basic API table showing component properties with default values.",
-      code: `<ApiTable
-  title="Dialog Component API"
-  description="Core properties for the Dialog component"
-  properties={[{
-    name: "open",
-    type: "boolean",
-    defaultValue: "false",
-    description: "Controls the open state of the dialog."
-  }, {
-    name: "onOpenChange",
-    type: "(open: boolean) => void",
-    defaultValue: "undefined",
-    description: "Callback fired when the open state changes."
-  }, {
-    name: "modal",
-    type: "boolean",
-    defaultValue: "true",
-    description: "Whether to render the dialog as a modal that blocks interactions with the rest of the app."
-  }, {
-    name: "defaultOpen",
-    type: "boolean",
-    defaultValue: "false",
-    description: "The initial open state of the dialog when it is rendered."
-  }, {
-    name: "closeOnEscape",
-    type: "boolean",
-    defaultValue: "true",
-    description: "Whether pressing the escape key should close the dialog."
-  }, {
-    name: "closeOnOutsideClick",
-    type: "boolean",
-    defaultValue: "true",
-    description: "Whether clicking outside the dialog should close it."
-  }]}
-/>`,
+      code: '<ApiTable title="Dialog Component API" description="Core properties for the Dialog component" properties={[{"name":"open","type":"boolean","defaultValue":"false","description":"Controls the open state of the dialog."},{"name":"onOpenChange","type":"(open: boolean) => void","defaultValue":"undefined","description":"Callback fired when the open state changes."},{"name":"modal","type":"boolean","defaultValue":"true","description":"Whether to render the dialog as a modal that blocks interactions with the rest of the app."}]} />',
     },
     {
       title: "Without Default Values",
