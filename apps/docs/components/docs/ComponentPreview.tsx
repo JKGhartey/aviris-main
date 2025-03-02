@@ -1,25 +1,11 @@
-import dynamic from "next/dynamic";
 import { cn } from "@aviris/ui/lib/utils";
-import { ComponentType } from "react";
+import { componentMap } from "./component-map";
 
 interface ComponentPreviewProps {
   componentId: string;
   code: string;
   className?: string;
 }
-
-const componentMap: Record<string, ComponentType<any>> = {
-  "file-upload": dynamic(() =>
-    import("@aviris/ui/components/core/FileUpload").then(
-      (mod) => mod.FileUpload,
-    ),
-  ),
-  "folder-structure": dynamic(() =>
-    import("@aviris/ui/components/core/FolderStructure").then(
-      (mod) => mod.FolderStructure,
-    ),
-  ),
-};
 
 export function ComponentPreview({
   componentId,

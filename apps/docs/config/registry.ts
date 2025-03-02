@@ -1,9 +1,14 @@
-import { fileUploadConfig, folderStructureConfig } from "./components";
+import {
+  fileUploadConfig,
+  folderStructureConfig,
+  apiTableConfig,
+} from "./components";
 import { ComponentDoc } from "./types";
 
 const registry: Record<string, ComponentDoc> = {
   "file-upload": fileUploadConfig,
   "folder-structure": folderStructureConfig,
+  "api-table": apiTableConfig,
 };
 
 export function getComponent(id: string): ComponentDoc | undefined {

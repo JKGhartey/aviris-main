@@ -9,46 +9,54 @@ export const folderStructureConfig: ComponentDoc = {
     {
       title: "Default",
       description: "A basic folder structure display.",
-      code: `<FolderStructure items={[
-  {
-    name: "app",
-    type: "folder",
-    children: [
-      {
-        name: "page.tsx",
-        type: "file"
-      },
-      {
-        name: "layout.tsx",
-        type: "file"
-      }
-    ]
-  }
-]} />`,
+      code: `<FolderStructure
+  items={[
+    {
+      name: "app",
+      type: "folder",
+      children: [
+        {
+          name: "page.tsx",
+          type: "file"
+        },
+        {
+          name: "layout.tsx",
+          type: "file"
+        }
+      ]
+    }
+  ]}
+  defaultExpanded={true}
+/>`,
     },
     {
-      title: "With Descriptions",
-      description: "Display additional information about files and folders.",
+      title: "With Descriptions and Colors",
+      description:
+        "Display additional information and custom colors for items.",
       code: `<FolderStructure 
   items={[
     {
       name: "src",
       type: "folder",
+      color: "#e6b800",
       children: [
         {
           name: "main.ts",
           type: "file",
-          description: "Application entry point"
+          description: "Application entry point",
+          color: "#0066cc"
         },
         {
           name: "types",
           type: "folder",
           description: "Type definitions",
+          color: "#e6b800",
           children: [
             {
               name: "index.d.ts",
               type: "file",
-              description: "Root type definitions"
+              description: "Root type definitions",
+              color: "#0066cc"
             }
           ]
         }
@@ -56,25 +64,6 @@ export const folderStructureConfig: ComponentDoc = {
     }
   ]}
   showDescriptions={true}
-/>`,
-    },
-    {
-      title: "Custom Styling",
-      description: "Customize the appearance with additional classes.",
-      code: `<FolderStructure
-  items={[
-    {
-      name: "styles",
-      type: "folder",
-      children: [
-        {
-          name: "globals.css",
-          type: "file"
-        }
-      ]
-    }
-  ]}
-  className="bg-muted/50 p-6 rounded-xl"
 />`,
     },
   ],
@@ -91,6 +80,12 @@ export const folderStructureConfig: ComponentDoc = {
       type: "boolean",
       default: "false",
       description: "Whether to show descriptions for items that have them.",
+    },
+    {
+      name: "defaultExpanded",
+      type: "boolean",
+      default: "false",
+      description: "Whether folders should be expanded by default.",
     },
     {
       name: "className",

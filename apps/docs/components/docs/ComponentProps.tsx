@@ -1,12 +1,4 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@aviris/ui/components/ui/table";
-import { Badge } from "@aviris/ui/components/ui/badge";
+import { ApiTable } from "@aviris/ui/components/core/APITable";
 import { ComponentDoc } from "~/config/types";
 import { cn } from "@aviris/ui/lib/utils";
 
@@ -22,40 +14,22 @@ export function ComponentProps({ component, className }: ComponentPropsProps) {
     return null;
   }
 
+  // Convert ComponentDoc props to APITable props format
+  const apiTableProps = props.map((prop) => ({
+    name: prop.name,
+    type: prop.type,
+    defaultValue: prop.default === "undefined" ? "-" : prop.default,
+    description: prop.required
+      ? `${prop.description} (Required)`
+      : prop.description,
+  }));
+
   return (
     <div className={cn("space-y-6", className)}>
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-semibold tracking-tight">Props</h2>
       </div>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[200px]">Name</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead className="w-[200px]">Type</TableHead>
-            <TableHead className="w-[150px]">Default</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {props.map((prop) => (
-            <TableRow key={prop.name}>
-              <TableCell className="font-mono">
-                {prop.name}
-                {prop.required && (
-                  <Badge variant="destructive" className="ml-2">
-                    Required
-                  </Badge>
-                )}
-              </TableCell>
-              <TableCell>{prop.description}</TableCell>
-              <TableCell className="font-mono">{prop.type}</TableCell>
-              <TableCell className="font-mono">
-                {prop.default === "undefined" ? "-" : prop.default}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <ApiTable properties={apiTableProps} showDefault={true} />
     </div>
   );
 }
