@@ -1,8 +1,9 @@
-import { fileUploadConfig } from "./components/file-upload";
+import { fileUploadConfig, folderStructureConfig } from "./components";
 import { ComponentDoc } from "./types";
 
 const registry: Record<string, ComponentDoc> = {
   "file-upload": fileUploadConfig,
+  "folder-structure": folderStructureConfig,
 };
 
 export function getComponent(id: string): ComponentDoc | undefined {

@@ -75,11 +75,6 @@ export const docsConfig: DocsConfig = {
           href: routes.docs.guides.contributing,
           description: "How to contribute to Aviris UI",
         },
-        {
-          title: "Deployment",
-          href: routes.docs.guides.deployment,
-          description: "Deploy your application with Aviris UI",
-        },
       ],
     },
   ],

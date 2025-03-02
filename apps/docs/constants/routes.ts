@@ -27,9 +27,8 @@ export const routes = {
     },
     guides: {
       root: "/guides",
-      gettingStarted: "/guides/getting-started",
+      gettingStarted: "/guides",
       contributing: "/guides/contributing",
-      deployment: "/guides/deployment",
     },
   },
 } as const;
