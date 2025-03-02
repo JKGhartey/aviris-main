@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@aviris/ui/components/section-header";
-import { Badge } from "@aviris/ui/components/badge";
+import { Badge } from "@aviris/ui/components/ui/badge";
 
 interface Feature {
   title: string;
@@ -128,7 +128,6 @@ export function Features() {
                       {feature.comingSoon && (
                         <Badge
                           variant="outline"
-                          size="sm"
                           className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20"
                         >
                           Coming Soon

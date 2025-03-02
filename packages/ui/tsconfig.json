@@ -10,7 +10,8 @@
     "src",
     "../../apps/docs/components/TableOfContents.tsx",
     "src/components/code-block.tsx",
-    "src/components/copy-button.tsx"
+    "src/components/copy-button.tsx",
+    "../../apps/www/components/custom-badge.tsx"
   ],
   "exclude": ["node_modules"]
 }
