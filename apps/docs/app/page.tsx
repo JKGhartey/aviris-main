@@ -1,12 +1,13 @@
 "use client";
 
+import { ArrowRight, Check, Github, Shield, Sparkles, Zap } from "lucide-react";
+
 import { Button } from "@aviris/ui/components/ui/button";
 import { Card } from "@aviris/ui/components/ui/card";
-import { ArrowRight, Github, Check, Sparkles, Zap, Shield } from "lucide-react";
-import Link from "next/link";
-import { routes } from "~/constants/routes";
-import { cn } from "@aviris/ui/lib/utils";
 import { DocsPager } from "~/components/DocsPager";
+import Link from "next/link";
+import { cn } from "@aviris/ui/lib/utils";
+import { routes } from "~/constants/routes";
 
 const features = [
   {
@@ -167,8 +168,8 @@ export default function IntroductionPage() {
       {/* Navigation */}
       <DocsPager
         next={{
-          title: "Installation",
-          href: routes.docs.installation,
+          title: "Components",
+          href: routes.docs.components.root,
         }}
       />
     </div>

@@ -11,13 +11,7 @@ export const routes = {
     cli: "/cli",
     components: {
       root: "/components",
-      // Core Components
-      fileUpload: "/components/file-upload",
-      // Custom Components (Planned)
-      jobApplication: "/components/job-application",
-      kanbanBoard: "/components/kanban-board",
-      // Widgets (Planned)
-      analyticsDashboard: "/components/analytics-dashboard",
+      // Routes will be dynamically generated from registry
     },
     customization: {
       root: "/customization",
@@ -27,7 +21,6 @@ export const routes = {
     },
     guides: {
       root: "/guides",
-      gettingStarted: "/guides",
       contributing: "/guides/contributing",
     },
   },

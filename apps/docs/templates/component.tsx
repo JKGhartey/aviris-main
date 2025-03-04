@@ -6,14 +6,16 @@ import {
   TabsList,
   TabsTrigger,
 } from "@aviris/ui/components/ui/tabs";
-import { Button } from "@aviris/ui/components/ui/button";
-import { ExternalLink } from "lucide-react";
-import { DocsPager } from "~/components/DocsPager";
 import { getComponent, getComponentIds } from "~/config/registry";
-import { ComponentHeader } from "~/components/docs/ComponentHeader";
-import { ComponentExamples } from "~/components/docs/ComponentExamples";
-import { ComponentProps } from "~/components/docs/ComponentProps";
+
+import { Button } from "@aviris/ui/components/ui/button";
 import { ComponentDependencies } from "~/components/docs/ComponentDependencies";
+import { ComponentExamples } from "~/components/docs/ComponentExamples";
+import { ComponentHeader } from "~/components/docs/ComponentHeader";
+import { ComponentProps } from "~/components/docs/ComponentProps";
+import { DocsPager } from "~/components/DocsPager";
+import { ExternalLink } from "lucide-react";
+import { routes } from "~/constants/routes";
 
 interface ComponentTemplateProps {
   componentId: string;
@@ -110,7 +112,10 @@ export default function ComponentTemplate({
                 title: nextComponent.name,
                 href: `/components/${nextId}`,
               }
-            : undefined
+            : {
+                title: "Styling",
+                href: routes.docs.customization.styling,
+              }
         }
       />
     </div>

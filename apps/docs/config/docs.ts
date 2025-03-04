@@ -65,12 +65,6 @@ export const docsConfig: DocsConfig = {
       href: routes.docs.guides.root,
       items: [
         {
-          title: "Getting Started",
-          href: routes.docs.guides.gettingStarted,
-          description:
-            "A comprehensive guide to getting started with Aviris UI",
-        },
-        {
           title: "Contributing",
           href: routes.docs.guides.contributing,
           description: "How to contribute to Aviris UI",

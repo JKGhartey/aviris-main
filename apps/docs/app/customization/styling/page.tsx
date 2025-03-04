@@ -1,14 +1,25 @@
 "use client";
 
-import { CodeBlock } from "@aviris/ui/components/code-block";
 import {
   Alert,
   AlertDescription,
   AlertTitle,
 } from "@aviris/ui/components/ui/alert";
+import { getComponent, getComponentIds } from "~/config/registry";
+
+import { CodeBlock } from "@aviris/ui/components/code-block";
+import { DocsPager } from "~/components/DocsPager";
 import { Info } from "lucide-react";
+import { getComponentRoute } from "~/utils/routes";
+import { routes } from "~/constants/routes";
 
 export default function StylingPage() {
+  const componentIds = getComponentIds();
+  const lastComponentId = componentIds[componentIds.length - 1];
+  const lastComponent = lastComponentId
+    ? getComponent(lastComponentId)
+    : undefined;
+
   return (
     <div className="space-y-10">
       <div className="space-y-4">
@@ -111,6 +122,17 @@ const buttonVariants = cva(
           </Alert>
         </div>
       </div>
+      {/* Navigation */}
+      <DocsPager
+        prev={{
+          title: lastComponent?.name ?? "",
+          href: getComponentRoute(lastComponentId ?? ""),
+        }}
+        next={{
+          title: "Theming",
+          href: routes.docs.customization.theming,
+        }}
+      />
     </div>
   );
 }
