@@ -22,6 +22,11 @@ export const routes = {
     guides: {
       root: "/guides",
       contributing: "/guides/contributing",
+      bestPractices: "/guides/best-practices",
+      accessibility: "/guides/accessibility",
+      performance: "/guides/performance",
+      deployment: "/guides/deployment",
+      troubleshooting: "/guides/troubleshooting",
     },
   },
 } as const;

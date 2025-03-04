@@ -1,6 +1,6 @@
-import { routes } from "~/constants/routes";
 import { NavItem } from "~/types/nav";
 import { getAllComponents } from "./registry";
+import { routes } from "~/constants/routes";
 
 export interface DocsConfig {
   sidebarNav: NavItem[];
@@ -64,6 +64,31 @@ export const docsConfig: DocsConfig = {
       title: "Guides",
       href: routes.docs.guides.root,
       items: [
+        {
+          title: "Best Practices",
+          href: routes.docs.guides.bestPractices,
+          description: "Learn the recommended practices for using Aviris UI",
+        },
+        {
+          title: "Accessibility",
+          href: routes.docs.guides.accessibility,
+          description: "Guidelines for building accessible applications",
+        },
+        {
+          title: "Performance",
+          href: routes.docs.guides.performance,
+          description: "Tips for optimizing your application's performance",
+        },
+        {
+          title: "Deployment",
+          href: routes.docs.guides.deployment,
+          description: "Learn how to deploy your Aviris UI application",
+        },
+        {
+          title: "Troubleshooting",
+          href: routes.docs.guides.troubleshooting,
+          description: "Common issues and their solutions",
+        },
         {
           title: "Contributing",
           href: routes.docs.guides.contributing,
