@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
@@ -14,6 +16,7 @@ interface CodeBlockProps {
   showLineNumbers?: boolean;
   maxHeight?: number;
   expandable?: boolean;
+  title?: string;
 }
 
 export function CodeBlock({
@@ -23,6 +26,7 @@ export function CodeBlock({
   showLineNumbers = false,
   maxHeight = 400,
   expandable = true,
+  title,
 }: CodeBlockProps) {
   const [isExpanded, setIsExpanded] = React.useState(false);
   const codeRef = React.useRef<HTMLDivElement>(null);
@@ -36,7 +40,15 @@ export function CodeBlock({
   }, [code, maxHeight, expandable]);
 
   return (
-    <div className={cn("relative rounded-lg overflow-hidden", className)}>
+    <div
+      className={cn("relative rounded-lg overflow-hidden border", className)}
+    >
+      {title && (
+        <div className="flex items-center justify-between px-4 py-2 border-b bg-muted/50">
+          <p className="text-sm text-muted-foreground font-medium">{title}</p>
+        </div>
+      )}
+
       <div className="absolute right-2 top-2 z-20">
         <CopyButton value={code} />
       </div>
@@ -49,7 +61,7 @@ export function CodeBlock({
         )}
         style={{ "--max-h": `${maxHeight}px` } as React.CSSProperties}
       >
-        <ScrollArea className="rounded-lg" type="always">
+        <ScrollArea className="rounded-b-lg rounded-t-none" type="always">
           <SyntaxHighlighter
             language={language}
             style={oneDark}
@@ -59,6 +71,7 @@ export function CodeBlock({
               margin: 0,
               background: "hsl(var(--muted))",
               fontSize: "0.875rem",
+              textShadow: "none",
               lineHeight: "1.5rem",
               whiteSpace: "pre-wrap",
               wordBreak: "break-word",
