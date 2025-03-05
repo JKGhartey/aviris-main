@@ -1,27 +1,32 @@
-import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "@aviris/ui/globals.css";
-import { cn } from "@aviris/ui/lib/utils";
+
+import {
+  generateMetadata,
+  generateViewport,
+} from "@aviris/seo/generateMetadata";
+
+import { Footer } from "@aviris/ui/components/footer";
+import { Inter } from "next/font/google";
 import { Navbar } from "~/components/navbar";
 import { ThemeProvider } from "@aviris/ui/theme";
-import { Footer } from "@aviris/ui/components/footer";
+import { cn } from "@aviris/ui/lib/utils";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-};
+export const viewport = generateViewport();
 
-export const metadata: Metadata = {
+export const metadata = generateMetadata({
   title: "Aviris",
-  description:
-    "Aviris is a platform for creating and managing your own AI agents.",
-};
+  description: "Your platform description here",
+  keywords: "your, keywords, here",
+  ogImage: "/og-image.jpg",
+  twitterHandle: "@aviris",
+  ogUrl: "https://aviris.com",
+  isWww: true,
+});
 
 export default function RootLayout({
   children,
@@ -30,7 +35,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="96x96"
+          href="/favicon-96x96.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
