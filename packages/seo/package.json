@@ -1,0 +1,23 @@
+{
+  "name": "@aviris/seo",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./generateMetadata": "./src/index.ts"
+  },
+  "dependencies": {
+    "next": "14.2.8"
+  },
+  "devDependencies": {
+    "@aviris/eslint-config": "workspace:*",
+    "@aviris/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

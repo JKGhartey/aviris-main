@@ -17,6 +17,7 @@
   "devDependencies": {
     "@aviris/eslint-config": "workspace:*",
     "@aviris/typescript-config": "workspace:*",
+    "@aviris/seo": "workspace:*",
     "@next/eslint-plugin-next": "14.2.8",
     "@types/eslint": "catalog:",
     "@types/node": "catalog:",
