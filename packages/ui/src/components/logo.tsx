@@ -1,9 +1,10 @@
 "use client";
 
 import * as React from "react";
+
+import Link from "next/link";
 import { cn } from "../lib/utils";
 import { useTheme } from "next-themes";
-import Link from "next/link";
 
 interface LogoProps {
   variant?: "logo" | "full";

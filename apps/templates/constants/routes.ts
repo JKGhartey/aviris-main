@@ -5,8 +5,8 @@ export const routes = {
     process.env.NODE_ENV === "production"
       ? process.env.NEXT_PUBLIC_APP_DOCS_URL
       : "http://localhost:3001",
-  templates:
+  landing_page:
     process.env.NODE_ENV === "production"
-      ? process.env.NEXT_PUBLIC_APP_TEMPLATES_URL
-      : "http://localhost:3002",
+      ? process.env.NEXT_PUBLIC_APP_LANDING_PAGE_URL
+      : "http://localhost:3000",
 } as const;

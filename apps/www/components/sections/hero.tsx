@@ -1,12 +1,12 @@
 "use client";
 
+import { CustomBadge } from "~/components/custom-badge";
+import { CustomButton } from "@aviris/ui/components/custom-button";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Stats } from "@aviris/ui/components/stats";
 import { Zap } from "lucide-react";
+import { motion } from "framer-motion";
 import { routes } from "~/constants/routes";
-import { CustomButton } from "@aviris/ui/components/custom-button";
-import { CustomBadge } from "~/components/custom-badge";
 
 const container = {
   hidden: { opacity: 0 },
@@ -192,14 +192,14 @@ export function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary opacity-0 group-hover:opacity-100 transition-opacity rounded-md" />
               </CustomButton>
             </Link>
-            <Link href="#">
+            <Link href={routes.templates as string}>
               <CustomButton
                 variant="outline"
                 size="lg"
                 className="relative group px-8 h-12 border-primary/20 hover:border-primary/40"
               >
                 <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70 group-hover:text-foreground transition-colors">
-                  Get Started
+                  View Templates
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-md" />
               </CustomButton>

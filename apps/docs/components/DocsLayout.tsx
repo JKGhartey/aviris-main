@@ -34,7 +34,7 @@ export function DocsLayout({ children }: DocsLayoutProps) {
   React.useEffect(() => {
     const headings = document.querySelectorAll("h2");
     const tocItems = Array.from(headings).map((heading) => ({
-      title: heading.textContent || "",
+      title: heading.textContent as string,
       url: `#${heading.id}`,
     }));
     setToc({ items: tocItems });
