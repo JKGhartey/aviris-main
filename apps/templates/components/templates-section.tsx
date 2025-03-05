@@ -12,37 +12,54 @@ export function TemplatesSection() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="container py-16 relative"
+      className="container py-24 relative"
     >
-      {/* Background gradient */}
+      {/* Background gradients */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(var(--primary),0.03),transparent_50%)]" />
       </div>
 
-      <div className="text-center mb-12">
-        <motion.h2
+      {/* Animated gradient orbs */}
+      <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-blob" />
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-blob animation-delay-2000" />
+
+      <div className="text-center mb-16">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary"
+          className="inline-block"
         >
-          Available Templates
+          <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold leading-6 text-primary ring-1 ring-inset ring-primary/20">
+            Available Templates
+          </span>
+        </motion.div>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mt-6 text-4xl font-bold tracking-tight sm:text-5xl"
+        >
+          <span className="bg-gradient-to-r from-primary via-primary/80 to-primary text-transparent bg-clip-text">
+            Choose Your Template
+          </span>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-lg text-muted-foreground max-w-2xl mx-auto"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto"
         >
-          Choose a template that best fits your needs. Each template is designed
-          to help you get started quickly.
+          Each template is designed to help you get started quickly with a
+          production-ready foundation.
         </motion.p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {templates.map((template, index) => (
           <motion.div
             key={template.title}
@@ -50,8 +67,13 @@ export function TemplatesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+            className="relative group"
           >
-            <TemplateCard {...template} />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-primary/5 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
+            <div className="relative">
+              <TemplateCard {...template} />
+            </div>
           </motion.div>
         ))}
       </div>

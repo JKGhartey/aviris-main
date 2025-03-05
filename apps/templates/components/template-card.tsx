@@ -39,15 +39,12 @@ export function TemplateCard({
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="group flex flex-col h-full hover:shadow-lg transition-all duration-300">
+      <Card className="group flex flex-col h-full hover:shadow-lg transition-all duration-300 rounded-2xl">
         <CardHeader className="space-y-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-2xl group-hover:text-primary transition-colors duration-300">
               {title}
             </CardTitle>
-            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-              <ArrowRight className="h-4 w-4 text-primary" />
-            </div>
           </div>
           <CardDescription className="text-base">{description}</CardDescription>
           <div className="flex flex-wrap gap-2">
@@ -96,7 +93,7 @@ export function TemplateCard({
           </Button>
           <Button
             asChild
-            className="flex-1 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity duration-300"
+            className="flex-1 hover:opacity-90 transition-opacity duration-300"
           >
             <Link href={demoUrl}>
               Try Demo

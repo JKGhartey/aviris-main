@@ -1,6 +1,13 @@
 "use client";
 
-import { ArrowRight, Check, Github, Shield, Sparkles, Zap } from "lucide-react";
+import {
+  AppWindow,
+  ArrowRight,
+  Check,
+  Shield,
+  Sparkles,
+  Zap,
+} from "lucide-react";
 
 import { Button } from "@aviris/ui/components/ui/button";
 import { Card } from "@aviris/ui/components/ui/card";
@@ -61,9 +68,13 @@ export default function IntroductionPage() {
             </Link>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <Link href={routes.github} target="_blank" rel="noreferrer">
-              <Github className="mr-2 h-4 w-4" />
-              GitHub
+            <Link
+              href={routes.templates as string}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <AppWindow className="mr-2 h-4 w-4" />
+              View all Templates
             </Link>
           </Button>
         </div>
