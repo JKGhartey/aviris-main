@@ -1,14 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@aviris/ui/lib/utils";
-import { ThemeToggle } from "@aviris/ui/theme";
 import { Button } from "@aviris/ui/components/ui/button";
-import { Github, Menu } from "lucide-react";
-import { routes } from "~/constants/routes";
-import { memo } from "react";
+import { GithubButton } from "@aviris/ui/components/github-button";
+import Link from "next/link";
 import { Logo } from "@aviris/ui/components/logo";
+import { Menu } from "lucide-react";
+import { ThemeToggle } from "@aviris/ui/theme";
+import { cn } from "@aviris/ui/lib/utils";
+import { memo } from "react";
+import { routes } from "~/constants/routes";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   {
@@ -76,17 +77,7 @@ export function Navbar({ onMenuClick }: NavbarProps) {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-muted-foreground"
-            asChild
-          >
-            <Link href={routes.github} target="_blank" rel="noreferrer">
-              <Github className="h-5 w-5" />
-              <span className="sr-only">GitHub</span>
-            </Link>
-          </Button>
+          <GithubButton />
           <ThemeToggle />
         </div>
       </div>

@@ -1,6 +1,7 @@
+import { Button, ButtonProps } from "@aviris/ui/components/ui/button";
+
 import React from "react";
 import { cn } from "@aviris/ui/lib/utils";
-import { Button, ButtonProps } from "@aviris/ui/components/ui/button";
 
 interface CustomButtonProps extends ButtonProps {
   customClassName?: string;
@@ -17,7 +18,7 @@ export const CustomButton = React.forwardRef<
   ) => {
     return (
       <Button
-        className={cn("custom-button-base", customClassName, className)}
+        className={cn("px-4 py-6 md:py-4", customClassName, className)}
         ref={ref}
         disabled={disabled || isLoading}
         {...props}
