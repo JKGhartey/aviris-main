@@ -1,6 +1,5 @@
 export const routes = {
   home: "/",
-  github: "https://github.com/jkghartey/aviris",
   landing:
     process.env.NODE_ENV === "production"
       ? process.env.NEXT_PUBLIC_APP_LANDING_URL
