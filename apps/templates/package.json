@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@aviris/ui": "workspace:*",
-    "lucide-react": "catalog:",
     "next": "14.2.8",
     "react": "catalog:react18",
     "react-dom": "catalog:react18"
@@ -18,6 +17,7 @@
   "devDependencies": {
     "@aviris/eslint-config": "workspace:*",
     "@aviris/typescript-config": "workspace:*",
+    "@aviris/seo": "workspace:*",
     "@next/eslint-plugin-next": "14.2.8",
     "@types/eslint": "catalog:",
     "@types/node": "catalog:",
