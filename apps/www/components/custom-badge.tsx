@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../lib/utils";
+import { cn } from "@aviris/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const badgeVariants = cva(
+const CustomBadgeVariants = cva(
   "inline-flex items-center gap-2 rounded-full backdrop-blur-sm transition-all duration-200",
   {
     variants: {
@@ -36,14 +36,14 @@ const badgeVariants = cva(
   },
 );
 
-export interface BadgeProps
+export interface CustomBadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {
+    VariantProps<typeof CustomBadgeVariants> {
   icon?: React.ReactNode;
   withRing?: boolean;
 }
 
-export function Badge({
+export function CustomBadge({
   className,
   variant,
   size,
@@ -52,10 +52,13 @@ export function Badge({
   withRing,
   children,
   ...props
-}: BadgeProps) {
+}: CustomBadgeProps) {
   return (
     <div
-      className={cn(badgeVariants({ variant, size, animation }), className)}
+      className={cn(
+        CustomBadgeVariants({ variant, size, animation }),
+        className,
+      )}
       {...props}
     >
       {withRing && (

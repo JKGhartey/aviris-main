@@ -1,10 +1,14 @@
-import { fileUploadConfig } from "./components/file-upload";
-import { kanbanBoardConfig } from "./components/kanban-board";
+import {
+  fileUploadConfig,
+  folderStructureConfig,
+  apiTableConfig,
+} from "./components";
 import { ComponentDoc } from "./types";
 
 const registry: Record<string, ComponentDoc> = {
   "file-upload": fileUploadConfig,
-  "kanban-board": kanbanBoardConfig,
+  "folder-structure": folderStructureConfig,
+  "api-table": apiTableConfig,
 };
 
 export function getComponent(id: string): ComponentDoc | undefined {

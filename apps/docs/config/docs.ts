@@ -1,15 +1,6 @@
-import { routes } from "../constants/routes";
-import { LucideIcon } from "lucide-react";
-
-export interface NavItem {
-  title: string;
-  href: string;
-  disabled?: boolean;
-  badge?: string;
-  description?: string;
-  icon?: LucideIcon;
-  items?: Omit<NavItem, "items">[];
-}
+import { NavItem } from "~/types/nav";
+import { getAllComponents } from "./registry";
+import { routes } from "~/constants/routes";
 
 export interface DocsConfig {
   sidebarNav: NavItem[];
@@ -42,29 +33,11 @@ export const docsConfig: DocsConfig = {
     {
       title: "Components",
       href: routes.docs.components.root,
-      items: [
-        {
-          title: "File Upload",
-          href: routes.docs.components.fileUpload,
-          description:
-            "Advanced file upload component with drag and drop support",
-        },
-        {
-          title: "Job Application",
-          href: routes.docs.components.jobApplication,
-          description: "Multi-step job application form with validation",
-        },
-        {
-          title: "Kanban Board",
-          href: routes.docs.components.kanbanBoard,
-          description: "Drag and drop kanban board for task management",
-        },
-        {
-          title: "Analytics Dashboard",
-          href: routes.docs.components.analyticsDashboard,
-          description: "Data visualization dashboard with real-time updates",
-        },
-      ],
+      items: getAllComponents().map((component) => ({
+        title: component.name,
+        href: `/components/${component.name.toLowerCase().replace(/\s+/g, "-")}`,
+        description: component.description,
+      })),
     },
     {
       title: "Customization",
@@ -92,20 +65,34 @@ export const docsConfig: DocsConfig = {
       href: routes.docs.guides.root,
       items: [
         {
-          title: "Getting Started",
-          href: routes.docs.guides.gettingStarted,
-          description:
-            "A comprehensive guide to getting started with Aviris UI",
+          title: "Best Practices",
+          href: routes.docs.guides.bestPractices,
+          description: "Learn the recommended practices for using Aviris UI",
+        },
+        {
+          title: "Accessibility",
+          href: routes.docs.guides.accessibility,
+          description: "Guidelines for building accessible applications",
+        },
+        {
+          title: "Performance",
+          href: routes.docs.guides.performance,
+          description: "Tips for optimizing your application's performance",
+        },
+        {
+          title: "Deployment",
+          href: routes.docs.guides.deployment,
+          description: "Learn how to deploy your Aviris UI application",
+        },
+        {
+          title: "Troubleshooting",
+          href: routes.docs.guides.troubleshooting,
+          description: "Common issues and their solutions",
         },
         {
           title: "Contributing",
           href: routes.docs.guides.contributing,
           description: "How to contribute to Aviris UI",
-        },
-        {
-          title: "Deployment",
-          href: routes.docs.guides.deployment,
-          description: "Deploy your application with Aviris UI",
         },
       ],
     },

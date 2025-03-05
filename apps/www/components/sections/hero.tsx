@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Stats } from "@aviris/ui/components/stats";
-import { Badge } from "@aviris/ui/components/badge";
-import { CustomButton } from "@aviris/ui/components/custom-button";
 import { Zap } from "lucide-react";
 import { routes } from "~/constants/routes";
+import { CustomButton } from "@aviris/ui/components/custom-button";
+import { CustomBadge } from "~/components/custom-badge";
 
 const container = {
   hidden: { opacity: 0 },
@@ -139,19 +139,19 @@ export function Hero() {
         >
           {/* Badge */}
           <motion.div variants={item}>
-            <Badge
+            <CustomBadge
               variant="gradient"
               size="lg"
               icon={<Zap className="h-4 w-4 text-primary" />}
             >
               Elevate Your React Development
-            </Badge>
+            </CustomBadge>
           </motion.div>
 
           {/* Title */}
           <motion.div
             variants={titleContainer}
-            className="space-y-4 text-center max-w-3xl"
+            className="space-y-4 text-center max-w-4xl"
           >
             <h1 className="text-3xl font-bold tracking-tight sm:text-6xl md:text-7xl">
               <div className="overflow-hidden">
