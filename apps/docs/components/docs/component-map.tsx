@@ -1,5 +1,5 @@
-import dynamic from "next/dynamic";
 import { ComponentType } from "react";
+import dynamic from "next/dynamic";
 
 export const componentMap: Record<string, ComponentType<any>> = {
   "file-upload": dynamic(() =>
@@ -14,5 +14,15 @@ export const componentMap: Record<string, ComponentType<any>> = {
   ),
   "api-table": dynamic(() =>
     import("@aviris/ui/components/core/APITable").then((mod) => mod.ApiTable),
+  ),
+  "floating-action-bar": dynamic(() =>
+    import("@aviris/ui/components/core/FloatingActionBar").then(
+      (mod) => mod.FloatingActionBar,
+    ),
+  ),
+  notifications: dynamic(() =>
+    import("@aviris/ui/components/core/Notifications").then(
+      (mod) => mod.Notifications,
+    ),
   ),
 };

@@ -1,3 +1,5 @@
+import { useCallback, useState } from "react";
+
 import { cn } from "@aviris/ui/lib/utils";
 import { componentMap } from "./component-map";
 
@@ -7,12 +9,88 @@ interface ComponentPreviewProps {
   className?: string;
 }
 
+// Define component-specific state types
+interface ComponentStates {
+  "floating-action-bar": {
+    expanded: boolean;
+  };
+  "file-upload": {
+    files: File[];
+  };
+  [key: string]: any;
+}
+
+// Define component-specific handlers
+interface ComponentHandlers {
+  "floating-action-bar": {
+    onToggle: (value: boolean) => void;
+    actions: Array<{
+      icon: React.ReactNode;
+      label: string;
+      onClick: () => void;
+    }>;
+  };
+  "file-upload": {
+    onFilesAdded: (files: File[]) => void;
+    onFileRemoved: (file: File) => void;
+  };
+  [key: string]: any;
+}
+
 export function ComponentPreview({
   componentId,
   code,
   className,
 }: ComponentPreviewProps) {
   const Component = componentMap[componentId as keyof typeof componentMap];
+
+  // Initialize component-specific state
+  const [componentState, setComponentState] = useState<ComponentStates>({
+    "floating-action-bar": { expanded: false },
+    "file-upload": { files: [] },
+  });
+
+  // Define component-specific handlers
+  const getComponentHandlers = useCallback(
+    (): ComponentHandlers => ({
+      "floating-action-bar": {
+        onToggle: (value: boolean) => {
+          setComponentState((prev) => ({
+            ...prev,
+            "floating-action-bar": {
+              ...prev["floating-action-bar"],
+              expanded: value,
+            },
+          }));
+          console.log("Action bar expanded:", value);
+        },
+        actions: [],
+      },
+      "file-upload": {
+        onFilesAdded: (newFiles: File[]) => {
+          setComponentState((prev) => ({
+            ...prev,
+            "file-upload": {
+              ...prev["file-upload"],
+              files: [...prev["file-upload"].files, ...newFiles],
+            },
+          }));
+          console.log("Files added:", newFiles);
+        },
+        onFileRemoved: (file: File) => {
+          setComponentState((prev) => ({
+            ...prev,
+            "file-upload": {
+              ...prev["file-upload"],
+              files: prev["file-upload"].files.filter((f) => f !== file),
+            },
+          }));
+          console.log("File removed:", file);
+        },
+      },
+    }),
+    [],
+  );
 
   if (!Component) {
     return (
@@ -30,17 +108,12 @@ export function ComponentPreview({
   // Extract props from the code string
   const getPropsFromCode = (code: string) => {
     try {
-      // Find the component usage in the code
       const match = code.match(/<([A-Za-z]+)\s+([^>]+)\/>/s);
-      if (!match?.[2]) {
-        console.log("No props found in code");
-        return {};
-      }
+      if (!match?.[2]) return {};
 
       const propsString = match[2];
-      console.log("Found props string:", propsString);
-
       const props: Record<string, any> = {};
+      const handlers = getComponentHandlers();
 
       // Extract prop name and its full value using a regex that handles nested braces
       const extractProps = (str: string) => {
@@ -64,9 +137,6 @@ export function ComponentPreview({
           if (char === "}") {
             depth--;
             if (depth === 0 && collectingValue) {
-              console.log(
-                `Found prop: ${currentProp} with value: ${currentValue}`,
-              );
               results[currentProp.trim()] = currentValue;
               currentProp = "";
               currentValue = "";
@@ -84,7 +154,6 @@ export function ComponentPreview({
           }
         }
 
-        console.log("Extracted props:", results);
         return results;
       };
 
@@ -93,21 +162,61 @@ export function ComponentPreview({
       // Parse each extracted prop
       for (const [key, value] of Object.entries(extractedProps)) {
         try {
-          console.log(`Processing prop ${key} with raw value:`, value);
-          // For arrays and objects, evaluate the structure
-          if (value.trim().startsWith("[") || value.trim().startsWith("{")) {
-            const cleanValue = value
-              .replace(/\s+/g, " ")
-              .trim()
-              .replace(/\bauth\b/g, "null");
+          // Handle interactive props based on component type
+          if (componentId in handlers) {
+            const componentHandlers =
+              handlers[componentId as keyof typeof handlers];
 
-            console.log(`Evaluating cleaned value for ${key}:`, cleanValue);
-            props[key] = eval(`(${cleanValue})`);
-            console.log(`Successfully parsed ${key}:`, props[key]);
+            if (key in componentHandlers) {
+              // Use the predefined handler
+              props[key] =
+                componentHandlers[key as keyof typeof componentHandlers];
+            } else if (
+              key === "actions" &&
+              componentId === "floating-action-bar"
+            ) {
+              // Special handling for actions with visual feedback
+              const actions = eval(`(${value})`);
+              props[key] = actions.map((action: any) => ({
+                ...action,
+                onClick: () => {
+                  console.log(`Clicked action: ${action.label}`);
+                  const button = document.querySelector(
+                    `[data-action="${action.label}"]`,
+                  );
+                  if (button) {
+                    button.classList.add("bg-primary/80");
+                    setTimeout(() => {
+                      button.classList.remove("bg-primary/80");
+                    }, 200);
+                  }
+                },
+              }));
+            } else if (
+              value.trim().startsWith("[") ||
+              value.trim().startsWith("{")
+            ) {
+              const cleanValue = value
+                .replace(/\s+/g, " ")
+                .trim()
+                .replace(/\bauth\b/g, "null");
+              props[key] = eval(`(${cleanValue})`);
+            } else {
+              props[key] =
+                value === "true" ? true : value === "false" ? false : value;
+            }
           } else {
-            // For simple values
-            props[key] =
-              value === "true" ? true : value === "false" ? false : value;
+            // Default handling for non-interactive components
+            if (value.trim().startsWith("[") || value.trim().startsWith("{")) {
+              const cleanValue = value
+                .replace(/\s+/g, " ")
+                .trim()
+                .replace(/\bauth\b/g, "null");
+              props[key] = eval(`(${cleanValue})`);
+            } else {
+              props[key] =
+                value === "true" ? true : value === "false" ? false : value;
+            }
           }
         } catch (error) {
           console.error(`Error parsing prop ${key}:`, error);
@@ -115,16 +224,22 @@ export function ComponentPreview({
         }
       }
 
-      console.log("Final props:", JSON.stringify(props, null, 2));
+      // Add component-specific state
+      if (componentId in componentState) {
+        Object.assign(
+          props,
+          componentState[componentId as keyof ComponentStates],
+        );
+      }
+
       return props;
     } catch (error) {
       console.error("Error parsing props:", error);
-      return { items: [] };
+      return {};
     }
   };
 
   const props = getPropsFromCode(code);
-  console.log("Props being passed to component:", props);
 
   return (
     <div className={cn("bg-background p-10", className)}>
