@@ -1,128 +1,122 @@
-# Turborepo starter with shadcn/ui
+# Aviris UI Component Library
 
+![Static Badge](https://img.shields.io/badge/React-18.x-blue)
+![Static Badge](https://img.shields.io/badge/TypeScript-5.x-blue)
 ![Static Badge](https://img.shields.io/badge/shadcn%2Fui-2.1.2-blue?link=https%3A%2F%2Fgithub.com%2Fshadcn%2Fui)
+![Static Badge](https://img.shields.io/badge/Turborepo-latest-blue)
 
-This is Turborepo starter with shadcn/ui pre-configured.
+A modern, accessible, and customizable React component library built with shadcn/ui and Turborepo.
 
-> [!NOTE]
-> This example uses `pnpm` as package manager.
+## 🌟 Features
 
-[npm version](https://github.com/dan5py/turborepo-shadcn-ui/tree/npm)
-[bun version](https://github.com/dan5py/turborepo-shadcn-ui/tree/bun)
+- 🎨 Modern and customizable UI components
+- 📱 Fully responsive design
+- ♿ Accessibility first
+- 🚀 Powered by shadcn/ui
+- 🔧 Built with TypeScript
+- 📦 Monorepo architecture with Turborepo
+- 🎯 Zero-runtime CSS with Tailwind
+- 📄 Comprehensive documentation
 
-## Using this example
+## 📦 Packages
 
-Clone the repository:
+This monorepo includes the following packages:
 
-```sh
-git clone https://github.com/dan5py/turborepo-shadcn-ui.git
-```
+- `@aviris/ui`: Core React component library
+- `@aviris/eslint-config`: Shared ESLint configurations
+- `@aviris/typescript-config`: Shared TypeScript configurations
+- `docs`: Next.js documentation site
 
-Install dependencies:
+## 🚀 Getting Started
 
-```sh
-cd turborepo-shadcn-ui
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/aviris/aviris-ui.git
+
+# Install dependencies
+cd aviris-ui
 pnpm install
 ```
 
-### Add ui components
+### Development
 
-Use the pre-made script:
+```bash
+# Start development server
+pnpm dev
 
-```sh
-pnpm ui add <component-name>
+# Build all packages
+pnpm build
+
+# Run tests
+pnpm test
 ```
 
-> This works just like the `shadcn/ui` CLI.
+## 🔧 Development Tools
 
-### Add a new app
+This project uses several development tools:
 
-Turborepo offer a simple command to add a new app:
-
-```sh
-pnpm turbo gen workspace --name <app-name>
-```
-
-This will create a new empty app in the `apps` directory.
-
-If you want, you can copy an existing app with:
-
-```sh
-pnpm turbo gen workspace --name <app-name> --copy
-```
-
-> [!NOTE]
-> Remember to run `pnpm install` after copying an app.
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `@aviris/ui`: a stub React component library (🚀 powered by **shadcn/ui**)
-- `@aviris/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@aviris/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [TypeScript](https://www.typescriptlang.org/) for type safety
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
+- [Turborepo](https://turbo.build/repo) for monorepo management
+- [shadcn/ui](https://ui.shadcn.com) for component foundations
 
-### Build
+### Adding New Components
 
-To build all apps and packages, run the following command:
+```bash
+# Add a new shadcn/ui component
+pnpm ui add <component-name>
 
-```sh
-cd turborepo-shadcn-ui
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```sh
-cd turborepo-shadcn-ui
-pnpm dev
+# Create a new workspace
+pnpm turbo gen workspace --name <workspace-name>
 ```
 
 ### Remote Caching
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+Enable remote caching with Vercel:
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd turborepo-shadcn-ui
+```bash
+# Login to Vercel
 npx turbo login
-```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```sh
+# Link to remote cache
 npx turbo link
 ```
 
-## Useful Links
+## 🤝 Contributing
 
-Learn more about the power of Turborepo:
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+### Development Workflow
 
-Learn more about shadcn/ui:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
-- [Documentation](https://ui.shadcn.com/docs)
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🔗 Useful Links
+
+- [Turborepo Documentation](https://turbo.build/repo/docs)
+- [shadcn/ui Documentation](https://ui.shadcn.com/docs)
+- [React Documentation](https://react.dev)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs)
+
+## 👥 Team
+
+The Aviris UI library is maintained by the Aviris team. We're committed to creating high-quality, accessible React components for modern web applications.
+
+## 💬 Support
+
+- 📧 Email: support@aviris.com
+- 💻 GitHub Issues: [Create an issue](https://github.com/aviris/aviris-ui/issues)
+- 📝 Documentation: [View docs](https://docs.aviris.com)
+
+---
+
+Built with ❤️ by the Aviris team
