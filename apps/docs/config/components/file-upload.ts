@@ -3,39 +3,37 @@ import { ComponentDoc } from "../types";
 export const fileUploadConfig: ComponentDoc = {
   name: "File Upload",
   description:
-    "A versatile file upload component with drag and drop support, file validation, and progress tracking.",
+    "A versatile file upload component with drag and drop support, file validation, and preview capabilities.",
   status: "stable",
   examples: [
     {
-      title: "Basic Example",
-      description: "A simple file upload component that accepts image files.",
-      code: `import { FileUpload } from "@aviris/ui/components/file-upload"
+      title: "Image Upload",
+      description:
+        "A file upload component configured for image files with preview support.",
+      code: `import { FileUpload } from "@aviris/ui/components/core/FileUpload"
+import { useState } from "react"
 
-export default function FileUploadExample() {
+export default function ImageUploadExample() {
+  const [files, setFiles] = useState<File[]>([])
+
   return (
     <FileUpload
       accept="image/*"
       maxSize={5000000}
-      onUpload={(files) => console.log(files)}
-    />
-  )
-}`,
-    },
-    {
-      title: "Advanced Example",
-      description: "File upload with validation and multiple file support.",
-      code: `import { FileUpload } from "@aviris/ui/components/file-upload"
-
-export default function AdvancedFileUpload() {
-  return (
-    <FileUpload
-      accept=".pdf,.doc,.docx"
-      maxSize={10000000}
       multiple={true}
-      onUpload={(files) => handleFiles(files)}
-      validation={{
-        maxFiles: 3,
-        allowedTypes: ['application/pdf', 'application/msword']
+      maxFiles={5}
+      showPreview={true}
+      validate={(file) => {
+        if (!file.type.startsWith("image/")) {
+          return "Only image files are allowed"
+        }
+        return null
+      }}
+      onFilesAdded={(newFiles) => {
+        setFiles((prev) => [...prev, ...newFiles])
+      }}
+      onFileRemoved={(file) => {
+        setFiles((prev) => prev.filter((f) => f !== file))
       }}
     />
   )
@@ -62,11 +60,46 @@ export default function AdvancedFileUpload() {
       description: "Allow multiple file selection",
     },
     {
-      name: "onUpload",
+      name: "maxFiles",
+      type: "number",
+      default: "undefined",
+      description: "Maximum number of files that can be uploaded",
+    },
+    {
+      name: "showPreview",
+      type: "boolean",
+      default: "false",
+      description: "Whether to show preview for image files",
+    },
+    {
+      name: "validate",
+      type: "(file: File) => string | null",
+      default: "undefined",
+      description:
+        "Custom validation function that returns an error message or null",
+    },
+    {
+      name: "onFilesAdded",
       type: "(files: File[]) => void",
       default: "undefined",
-      description: "Callback function when files are uploaded",
+      description: "Callback when files are added",
       required: true,
     },
+    {
+      name: "onFileRemoved",
+      type: "(file: File) => void",
+      default: "undefined",
+      description: "Callback when a file is removed",
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "undefined",
+      description: "Additional CSS classes",
+    },
   ],
+  metadata: {
+    sourceUrl: "components/core/FileUpload.tsx",
+    package: "@aviris/ui",
+  },
 };

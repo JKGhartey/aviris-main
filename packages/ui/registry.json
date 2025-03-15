@@ -35,6 +35,23 @@
         ],
         "dependencies": ["lucide-react"],
         "exports": ["APITable", "APITableHeader", "APITableRow", "APITableCell"]
+      },
+      "floating-action-bar": {
+        "name": "FloatingActionBar",
+        "description": "A floating action bar component that expands to show additional actions",
+        "type": "interactive",
+        "status": "stable",
+        "hasTests": false,
+        "source": "/components/core/FloatingActionBar.tsx",
+        "features": [
+          "Expandable action menu",
+          "Customizable main action",
+          "Multiple action items",
+          "Smooth animations",
+          "Mobile responsive"
+        ],
+        "dependencies": ["lucide-react"],
+        "exports": ["FloatingActionBar"]
       }
     },
     "custom": {

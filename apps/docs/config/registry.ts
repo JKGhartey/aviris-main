@@ -1,14 +1,19 @@
 import {
-  fileUploadConfig,
-  folderStructureConfig,
   apiTableConfig,
+  fileUploadConfig,
+  floatingActionBarConfig,
+  notificationsConfig,
 } from "./components";
+
 import { ComponentDoc } from "./types";
+import folderStructureConfig from "./components/folder-structure";
 
 const registry: Record<string, ComponentDoc> = {
   "file-upload": fileUploadConfig,
   "folder-structure": folderStructureConfig,
   "api-table": apiTableConfig,
+  "floating-action-bar": floatingActionBarConfig,
+  notifications: notificationsConfig,
 };
 
 export function getComponent(id: string): ComponentDoc | undefined {

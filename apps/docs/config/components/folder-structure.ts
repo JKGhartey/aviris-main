@@ -1,102 +1,40 @@
 import { ComponentDoc } from "../types";
 
-export const folderStructureConfig: ComponentDoc = {
+const folderStructureConfig: ComponentDoc = {
   name: "Folder Structure",
   description:
     "A component for displaying folder and file structures in a tree view.",
   status: "stable",
-  examples: [
-    {
-      title: "Default",
-      description: "A basic folder structure display.",
-      code: `<FolderStructure
-  items={[
-    {
-      name: "app",
-      type: "folder",
-      children: [
-        {
-          name: "page.tsx",
-          type: "file"
-        },
-        {
-          name: "layout.tsx",
-          type: "file"
-        }
-      ]
-    }
-  ]}
-  defaultExpanded={true}
-/>`,
-    },
-    {
-      title: "With Descriptions and Colors",
-      description:
-        "Display additional information and custom colors for items.",
-      code: `<FolderStructure 
-  items={[
-    {
-      name: "src",
-      type: "folder",
-      color: "#e6b800",
-      children: [
-        {
-          name: "main.ts",
-          type: "file",
-          description: "Application entry point",
-          color: "#0066cc"
-        },
-        {
-          name: "types",
-          type: "folder",
-          description: "Type definitions",
-          color: "#e6b800",
-          children: [
-            {
-              name: "index.d.ts",
-              type: "file",
-              description: "Root type definitions",
-              color: "#0066cc"
-            }
-          ]
-        }
-      ]
-    }
-  ]}
-  showDescriptions={true}
-/>`,
-    },
-  ],
+  examples: [],
   props: [
     {
       name: "items",
-      type: "FolderStructureItem[]",
-      description: "Array of items to display in the folder structure.",
-      default: "[]",
+      type: "FolderItem[]",
+      description: "Array of folder items to display in the tree view",
       required: true,
+      default: "[]",
     },
     {
-      name: "showDescriptions",
-      type: "boolean",
-      default: "false",
-      description: "Whether to show descriptions for items that have them.",
+      name: "onToggle",
+      type: "(path: string) => void",
+      description: "Callback function when a folder is expanded or collapsed",
+      required: false,
+      default: "undefined",
     },
     {
-      name: "defaultExpanded",
-      type: "boolean",
-      default: "false",
-      description: "Whether folders should be expanded by default.",
-    },
-    {
-      name: "className",
-      type: "string",
-      default: "",
-      description: "Additional CSS classes to apply to the root element.",
+      name: "expandedPaths",
+      type: "string[]",
+      description: "Array of paths that should be expanded",
+      required: false,
+      default: "[]",
     },
   ],
   metadata: {
-    sourceUrl: "components/ui/folder-structure.tsx",
+    sourceUrl:
+      "https://github.com/aviris/aviris/tree/main/packages/ui/src/components/core/FolderStructure.tsx",
     package: "@aviris/ui",
-    dependencies: ["lucide-react"],
+    version: "0.1.0",
   },
 };
+
+export default folderStructureConfig;
