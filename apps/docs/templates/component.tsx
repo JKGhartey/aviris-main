@@ -10,16 +10,40 @@ import { getComponent, getComponentIds } from "~/config/registry";
 
 import { Button } from "@aviris/ui/components/ui/button";
 import { ComponentDependencies } from "~/components/docs/ComponentDependencies";
-import { ComponentExamples } from "~/components/docs/ComponentExamples";
 import { ComponentHeader } from "~/components/docs/ComponentHeader";
 import { ComponentProps } from "~/components/docs/ComponentProps";
 import { DocsPager } from "~/components/DocsPager";
 import { ExternalLink } from "lucide-react";
+import dynamic from "next/dynamic";
 import { routes } from "~/constants/routes";
 
 interface ComponentTemplateProps {
   componentId: string;
 }
+
+// Dynamic imports for preview components
+const previewComponents: Record<string, React.ComponentType> = {
+  "file-upload": dynamic(() =>
+    import("~/components/previews/FileUploadPreview").then(
+      (mod) => mod.FileUploadPreview,
+    ),
+  ),
+  "folder-structure": dynamic(() =>
+    import("~/components/previews/FolderStructurePreview").then(
+      (mod) => mod.FolderStructurePreview,
+    ),
+  ),
+  "floating-action-bar": dynamic(() =>
+    import("~/components/previews/FloatingActionBarPreview").then(
+      (mod) => mod.FloatingActionBarPreview,
+    ),
+  ),
+  notifications: dynamic(() =>
+    import("~/components/previews/NotificationsPreview").then(
+      (mod) => mod.NotificationsPreview,
+    ),
+  ),
+};
 
 export default function ComponentTemplate({
   componentId,
@@ -35,6 +59,7 @@ export default function ComponentTemplate({
   }
 
   const hasDependencies = (component.metadata?.dependencies ?? []).length > 0;
+  const PreviewComponent = previewComponents[componentId];
 
   // Get navigation items
   const allComponentIds = getComponentIds();
@@ -54,44 +79,45 @@ export default function ComponentTemplate({
     <div className="space-y-8">
       <ComponentHeader component={component} />
 
-      <Tabs defaultValue="examples" className="space-y-8">
-        <div className="flex items-center justify-between">
-          <TabsList className="h-10">
-            <TabsTrigger value="examples">Examples</TabsTrigger>
-            <TabsTrigger value="props">Props</TabsTrigger>
-            {hasDependencies && (
-              <TabsTrigger value="dependencies">Dependencies</TabsTrigger>
-            )}
-          </TabsList>
+      <Tabs defaultValue="preview" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="preview">Preview</TabsTrigger>
+          <TabsTrigger value="props">Props</TabsTrigger>
+          {hasDependencies && (
+            <TabsTrigger value="dependencies">Dependencies</TabsTrigger>
+          )}
+        </TabsList>
+
+        <TabsContent value="preview" className="space-y-4">
+          {PreviewComponent && (
+            <div className="rounded-lg border">
+              <div className="p-6">
+                <PreviewComponent />
+              </div>
+            </div>
+          )}
+
           {component.metadata?.sourceUrl && (
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
-              className="h-10 gap-2 text-muted-foreground hover:text-foreground"
-              asChild
+              className="h-8"
+              onClick={() =>
+                window.open(component.metadata?.sourceUrl, "_blank")
+              }
             >
-              <a
-                href={component.metadata.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View source
-                <ExternalLink className="h-4 w-4" />
-              </a>
+              View source
+              <ExternalLink className="ml-2 h-3 w-3" />
             </Button>
           )}
-        </div>
-
-        <TabsContent value="examples" className="space-y-6">
-          <ComponentExamples component={component} />
         </TabsContent>
 
-        <TabsContent value="props" className="space-y-6">
+        <TabsContent value="props">
           <ComponentProps component={component} />
         </TabsContent>
 
         {hasDependencies && (
-          <TabsContent value="dependencies" className="space-y-6">
+          <TabsContent value="dependencies">
             <ComponentDependencies component={component} />
           </TabsContent>
         )}
@@ -99,7 +125,7 @@ export default function ComponentTemplate({
 
       <DocsPager
         prev={
-          prevComponent && prevId
+          prevComponent
             ? {
                 title: prevComponent.name,
                 href: `/components/${prevId}`,
@@ -107,15 +133,12 @@ export default function ComponentTemplate({
             : undefined
         }
         next={
-          nextComponent && nextId
+          nextComponent
             ? {
                 title: nextComponent.name,
                 href: `/components/${nextId}`,
               }
-            : {
-                title: "Styling",
-                href: routes.docs.customization.styling,
-              }
+            : undefined
         }
       />
     </div>

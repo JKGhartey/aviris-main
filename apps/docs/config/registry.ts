@@ -2,11 +2,11 @@ import {
   apiTableConfig,
   fileUploadConfig,
   floatingActionBarConfig,
-  folderStructureConfig,
   notificationsConfig,
 } from "./components";
 
 import { ComponentDoc } from "./types";
+import folderStructureConfig from "./components/folder-structure";
 
 const registry: Record<string, ComponentDoc> = {
   "file-upload": fileUploadConfig,

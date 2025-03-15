@@ -12,12 +12,13 @@
     "@aviris/ui": "workspace:*",
     "next": "14.2.8",
     "react": "catalog:react18",
-    "react-dom": "catalog:react18"
+    "react-dom": "catalog:react18",
+    "sonner": "^1.4.0"
   },
   "devDependencies": {
     "@aviris/eslint-config": "workspace:*",
-    "@aviris/typescript-config": "workspace:*",
     "@aviris/seo": "workspace:*",
+    "@aviris/typescript-config": "workspace:*",
     "@next/eslint-plugin-next": "14.2.8",
     "@types/eslint": "catalog:",
     "@types/node": "catalog:",

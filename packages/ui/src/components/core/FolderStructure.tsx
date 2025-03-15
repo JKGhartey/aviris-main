@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { ChevronRight, Folder, File } from "lucide-react";
+
+import { ChevronRight, File, Folder } from "lucide-react";
+
 import { cn } from "../../lib/utils";
 
 export interface FolderStructureItem {
@@ -13,7 +15,9 @@ export interface FolderStructureItem {
   color?: string;
 }
 
-export interface FolderStructureProps {
+type FolderToggleHandler = (path: string, isOpen: boolean) => void;
+
+interface FolderStructureBaseProps {
   /** Array of items to display in the folder structure */
   items: FolderStructureItem[];
   /** Whether to show descriptions for items that have them */
@@ -22,18 +26,28 @@ export interface FolderStructureProps {
   selectedItem?: FolderStructureItem;
   /** Default expanded state for folders */
   defaultExpanded?: boolean;
-  /** Additional CSS classes */
-  className?: string;
+  /** Called when a folder is toggled */
+  onToggle?: FolderToggleHandler;
 }
 
-interface FolderItemProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onSelect"> {
+export type FolderStructureProps = FolderStructureBaseProps &
+  Omit<
+    React.HTMLAttributes<HTMLDivElement>,
+    keyof FolderStructureBaseProps | "onToggle"
+  >;
+
+interface FolderItemBaseProps {
   item: FolderStructureItem;
   showDescriptions?: boolean;
   level?: number;
   isSelected?: boolean;
   defaultExpanded?: boolean;
+  path?: string;
+  onToggle?: FolderToggleHandler;
 }
+
+type FolderItemProps = FolderItemBaseProps &
+  Omit<React.HTMLAttributes<HTMLDivElement>, keyof FolderItemBaseProps>;
 
 const FolderItem = React.forwardRef<HTMLDivElement, FolderItemProps>(
   (
@@ -43,6 +57,8 @@ const FolderItem = React.forwardRef<HTMLDivElement, FolderItemProps>(
       level = 0,
       isSelected,
       defaultExpanded = false,
+      path = "",
+      onToggle,
       className,
       ...props
     },
@@ -51,14 +67,26 @@ const FolderItem = React.forwardRef<HTMLDivElement, FolderItemProps>(
     const [isOpen, setIsOpen] = React.useState(defaultExpanded);
     const hasChildren = item.type === "folder" && item.children?.length;
     const paddingLeft = `${level * 1.5}rem`;
+    const currentPath = path ? `${path}/${item.name}` : item.name;
+
+    const handleToggle = () => {
+      if (hasChildren) {
+        const newIsOpen = !isOpen;
+        setIsOpen(newIsOpen);
+        onToggle?.(currentPath, newIsOpen);
+      }
+    };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
+        handleToggle();
       } else if (e.key === "ArrowRight" && hasChildren && !isOpen) {
         setIsOpen(true);
+        onToggle?.(currentPath, true);
       } else if (e.key === "ArrowLeft" && hasChildren && isOpen) {
         setIsOpen(false);
+        onToggle?.(currentPath, false);
       }
     };
 
@@ -69,12 +97,15 @@ const FolderItem = React.forwardRef<HTMLDivElement, FolderItemProps>(
             "group relative flex items-center gap-2 rounded-md px-2 py-1.5 outline-none transition-colors",
             "hover:bg-muted/50 focus-visible:bg-muted/50 focus-visible:ring-2 focus-visible:ring-ring",
             isSelected && "bg-muted/50",
+            hasChildren && "cursor-pointer",
             className,
           )}
           style={{ paddingLeft }}
+          onClick={handleToggle}
           onKeyDown={handleKeyDown}
-          role="button"
+          role={hasChildren ? "button" : undefined}
           tabIndex={0}
+          data-path={currentPath}
         >
           <div className="flex items-center gap-2 overflow-hidden">
             {item.type === "folder" ? (
@@ -122,6 +153,8 @@ const FolderItem = React.forwardRef<HTMLDivElement, FolderItemProps>(
                 level={level + 1}
                 isSelected={isSelected && child === item}
                 defaultExpanded={defaultExpanded}
+                path={currentPath}
+                onToggle={onToggle}
               />
             ))}
           </div>
@@ -135,7 +168,7 @@ FolderItem.displayName = "FolderItem";
 
 export const FolderStructure = React.forwardRef<
   HTMLDivElement,
-  FolderStructureProps & React.HTMLAttributes<HTMLDivElement>
+  FolderStructureProps
 >(
   (
     {
@@ -143,6 +176,7 @@ export const FolderStructure = React.forwardRef<
       showDescriptions = false,
       selectedItem,
       defaultExpanded = false,
+      onToggle,
       className,
       ...props
     },
@@ -164,6 +198,7 @@ export const FolderStructure = React.forwardRef<
             showDescriptions={showDescriptions}
             isSelected={selectedItem === item}
             defaultExpanded={defaultExpanded}
+            onToggle={onToggle}
           />
         ))}
       </div>

@@ -1,303 +1,255 @@
 "use client";
 
 import * as React from "react";
-import { useCallback, useState } from "react";
-import { cn } from "../../lib/utils";
-import { Upload, X, FileIcon, ImageIcon, AlertCircle } from "lucide-react";
 
-export interface FileUploadProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Accept specific file types */
-  accept?: string;
-  /** Maximum file size in bytes */
-  maxSize?: number;
-  /** Maximum number of files */
-  maxFiles?: number;
-  /** Whether to allow multiple file selection */
-  multiple?: boolean;
-  /** Callback when files are added */
-  onFilesAdded?: (files: File[]) => void;
-  /** Callback when a file is removed */
-  onFileRemoved?: (file: File) => void;
-  /** Whether to show preview for images */
-  showPreview?: boolean;
-  /** Custom validation function */
-  validate?: (file: File) => string | null;
-}
+import { AlertCircle, CheckCircle, File, UploadCloud, X } from "lucide-react";
+
+import { Button } from "../ui/button";
+import { Progress } from "../ui/progress";
+import { cn } from "../../lib/utils";
+import { useDropzone } from "react-dropzone";
+
+export type FileStatus = "idle" | "uploading" | "success" | "error";
 
 export interface FileWithPreview extends File {
-  preview?: string;
+  preview: string;
+  id: string;
+  status: FileStatus;
+  progress: number;
+  errorMessage?: string;
+  name: string;
+  size: number;
+  type: string;
+  lastModified: number;
 }
 
-export const useFileUpload = () => {
-  const [files, setFiles] = useState<FileWithPreview[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
+// --------------------------------
+// FileUpload Component
+// --------------------------------
 
-  const validateFile = (
-    file: File,
-    maxSize?: number,
-    validate?: (file: File) => string | null,
-  ) => {
-    if (maxSize && file.size > maxSize) {
-      return `File size exceeds ${Math.round(maxSize / 1024 / 1024)}MB limit`;
-    }
-    if (validate) {
-      return validate(file);
-    }
-    return null;
-  };
+export interface FileUploadProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Maximum number of files allowed */
+  maxFiles?: number;
+  /** Maximum file size in bytes */
+  maxSize?: number;
+  /** Accepted file types */
+  accept?: Record<string, string[]>;
+  /** Disable the upload zone */
+  disabled?: boolean;
+  /** Currently selected files */
+  value?: FileWithPreview[];
+  /** Called when files are added or removed */
+  onFilesChange?: (files: FileWithPreview[]) => void;
+  /** Custom content for the upload zone */
+  children?: React.ReactNode;
+  /** Custom icon component */
+  icon?: React.ReactNode;
+  /** Primary text in upload zone */
+  primaryText?: string;
+  /** Secondary text in upload zone */
+  secondaryText?: string;
+  /** Hide the file count */
+  hideFileCount?: boolean;
+}
 
-  const addFiles = useCallback(
-    (newFiles: FileWithPreview[], maxFiles?: number) => {
-      setFiles((prevFiles) => {
-        const updatedFiles = [...prevFiles];
-        newFiles.forEach((file) => {
-          if (!maxFiles || updatedFiles.length < maxFiles) {
-            if (file.type.startsWith("image/")) {
-              file.preview = URL.createObjectURL(file);
-            }
-            updatedFiles.push(file);
-          }
-        });
-        return updatedFiles;
-      });
+export function FileUpload({
+  maxFiles = 5,
+  maxSize = 5 * 1024 * 1024, // 5MB
+  accept = {
+    "image/*": [],
+    "application/pdf": [],
+  },
+  disabled = false,
+  value,
+  onFilesChange,
+  children,
+  icon = <UploadCloud className="h-6 w-6 text-primary" />,
+  primaryText,
+  secondaryText = "or click to browse files",
+  hideFileCount = false,
+  className,
+  ...props
+}: FileUploadProps) {
+  const files = value || [];
+
+  const onDrop = React.useCallback(
+    (acceptedFiles: File[]) => {
+      if (files.length + acceptedFiles.length > maxFiles) {
+        console.error(`You can only upload up to ${maxFiles} files`);
+        return;
+      }
+
+      const newFiles = acceptedFiles.map((file) => ({
+        ...file,
+        preview: URL.createObjectURL(file),
+        id: crypto.randomUUID(),
+        status: "idle" as FileStatus,
+        progress: 0,
+        // Explicitly preserve File properties
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        lastModified: file.lastModified,
+      })) as FileWithPreview[];
+
+      const updatedFiles = [...files, ...newFiles];
+      onFilesChange?.(updatedFiles);
     },
-    [],
+    [files, maxFiles, onFilesChange],
   );
 
-  const removeFile = useCallback((fileToRemove: File) => {
-    setFiles((prevFiles) => {
-      const updatedFiles = prevFiles.filter((file) => file !== fileToRemove);
-      if ((fileToRemove as FileWithPreview).preview) {
-        URL.revokeObjectURL((fileToRemove as FileWithPreview).preview!);
-      }
-      return updatedFiles;
-    });
-  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxSize,
+    maxFiles: maxFiles - files.length,
+    accept,
+    disabled: disabled || files.length >= maxFiles,
+  });
 
-  return {
-    files,
-    error,
-    isDragging,
-    setError,
-    setIsDragging,
-    addFiles,
-    removeFile,
-    validateFile,
-  };
-};
-
-const FilePreview = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & {
-    file: FileWithPreview;
-    onRemove: () => void;
-  }
->(({ file, onRemove, className, ...props }, ref) => {
-  const isImage = file.type.startsWith("image/");
+  // Clean up previews when component unmounts
+  React.useEffect(() => {
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, [files]);
 
   return (
     <div
-      ref={ref}
+      {...getRootProps()}
       className={cn(
-        "relative flex items-center gap-2 rounded-md border bg-background p-2",
+        "relative flex h-64 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 p-6 text-center transition-colors hover:border-primary/50",
+        isDragActive && "border-primary/50 bg-primary/5",
+        disabled && "cursor-not-allowed opacity-60",
         className,
       )}
       {...props}
     >
-      {isImage && file.preview ? (
-        <img
-          src={file.preview}
-          alt={file.name}
-          className="h-10 w-10 rounded-md object-cover"
-        />
-      ) : (
-        <div className="flex h-10 w-10 items-center justify-center rounded-md border bg-muted">
-          {isImage ? (
-            <ImageIcon className="h-5 w-5 text-muted-foreground" />
-          ) : (
-            <FileIcon className="h-5 w-5 text-muted-foreground" />
+      <input {...getInputProps()} />
+
+      {children || (
+        <div className="flex flex-col items-center justify-center space-y-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+            {icon}
+          </div>
+
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium">
+              {isDragActive
+                ? "Drop the files here"
+                : primaryText || "Drag & drop files here"}
+            </p>
+            <p className="text-xs text-muted-foreground">{secondaryText}</p>
+          </div>
+
+          {!hideFileCount && files.length > 0 && (
+            <p className="text-xs text-muted-foreground">
+              {files.length} of {maxFiles} files selected
+            </p>
           )}
         </div>
       )}
-      <div className="flex flex-1 flex-col">
-        <p className="text-sm font-medium">{file.name}</p>
-        <p className="text-xs text-muted-foreground">
-          {Math.round(file.size / 1024)}KB
-        </p>
-      </div>
-      <button
-        type="button"
-        onClick={onRemove}
-        className="rounded-md p-1 hover:bg-muted"
-      >
-        <X className="h-4 w-4" />
-        <span className="sr-only">Remove file</span>
-      </button>
     </div>
   );
-});
+}
 
-FilePreview.displayName = "FilePreview";
+// --------------------------------
+// FileList Component
+// --------------------------------
 
-export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
-  (
-    {
-      accept,
-      maxSize,
-      maxFiles = 1,
-      multiple = false,
-      onFilesAdded,
-      onFileRemoved,
-      showPreview = true,
-      validate,
-      className,
-      ...props
-    },
-    ref,
-  ) => {
-    const {
-      files,
-      error,
-      isDragging,
-      setError,
-      setIsDragging,
-      addFiles,
-      removeFile,
-      validateFile,
-    } = useFileUpload();
+export interface FileListProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Files to display */
+  files: FileWithPreview[];
+  /** Called when a file is removed */
+  onRemove?: (file: FileWithPreview) => void;
+  /** Whether the list is in a loading state */
+  isLoading?: boolean;
+  /** Custom renderer for file items */
+  renderFile?: (file: FileWithPreview) => React.ReactNode;
+  /** Custom renderer for the remove button */
+  renderRemoveButton?: (file: FileWithPreview) => React.ReactNode;
+  /** Custom renderer for the progress indicator */
+  renderProgress?: (file: FileWithPreview) => React.ReactNode;
+  /** Hide the remove button */
+  hideRemoveButton?: boolean;
+}
 
-    const handleDragEnter = (e: React.DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsDragging(true);
-    };
+export function FileList({
+  files,
+  onRemove,
+  isLoading,
+  renderFile,
+  renderRemoveButton,
+  renderProgress,
+  hideRemoveButton = false,
+  className,
+  ...props
+}: FileListProps) {
+  if (files.length === 0) return null;
 
-    const handleDragLeave = (e: React.DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsDragging(false);
-    };
-
-    const handleDrop = (e: React.DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsDragging(false);
-      setError(null);
-
-      const droppedFiles = Array.from(e.dataTransfer.files);
-      if (!multiple && droppedFiles.length > 1) {
-        setError("Only one file can be uploaded at a time");
-        return;
-      }
-
-      const validFiles: FileWithPreview[] = [];
-      droppedFiles.forEach((file) => {
-        const error = validateFile(file, maxSize, validate);
-        if (error) {
-          setError(error);
-        } else {
-          validFiles.push(file);
-        }
-      });
-
-      if (validFiles.length > 0) {
-        addFiles(validFiles, maxFiles);
-        onFilesAdded?.(validFiles);
-      }
-    };
-
-    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const selectedFiles = Array.from(e.target.files || []);
-      const validFiles: FileWithPreview[] = [];
-
-      selectedFiles.forEach((file) => {
-        const error = validateFile(file, maxSize, validate);
-        if (error) {
-          setError(error);
-        } else {
-          validFiles.push(file);
-        }
-      });
-
-      if (validFiles.length > 0) {
-        addFiles(validFiles, maxFiles);
-        onFilesAdded?.(validFiles);
-      }
-    };
-
-    const handleRemove = (file: File) => {
-      removeFile(file);
-      onFileRemoved?.(file);
-    };
-
-    return (
-      <div ref={ref} className={cn("space-y-4", className)} {...props}>
-        <div
-          onDragEnter={handleDragEnter}
-          onDragOver={handleDragEnter}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-          className={cn(
-            "flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition-colors",
-            isDragging
-              ? "border-primary/50 bg-primary/5"
-              : "border-muted-foreground/25 hover:border-primary/50 hover:bg-primary/5",
-          )}
-        >
-          <div className="flex flex-col items-center justify-center text-center">
-            <Upload className="h-10 w-10 text-muted-foreground" />
-            <div className="mt-4 space-y-2">
-              <p className="text-sm font-medium">
-                Drag & drop your files here, or{" "}
-                <label className="cursor-pointer text-primary hover:underline">
-                  browse
-                  <input
-                    type="file"
-                    className="hidden"
-                    accept={accept}
-                    multiple={multiple}
-                    onChange={handleFileSelect}
+  return (
+    <div className={cn("space-y-2", className)} {...props}>
+      {files.map((file) =>
+        renderFile ? (
+          renderFile(file)
+        ) : (
+          <div
+            key={file.id}
+            className="flex items-center justify-between rounded-lg border p-3"
+          >
+            <div className="flex items-center gap-3 overflow-hidden">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border bg-background">
+                {file.type && file.type.startsWith("image/") ? (
+                  <img
+                    src={file.preview}
+                    alt={file.name}
+                    className="h-full w-full rounded-md object-cover"
+                    onLoad={() => {
+                      URL.revokeObjectURL(file.preview);
+                    }}
                   />
-                </label>
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {multiple
-                  ? `Upload up to ${maxFiles} files`
-                  : "Upload a single file"}
-                {maxSize &&
-                  ` (max ${Math.round(maxSize / 1024 / 1024)}MB per file)`}
-              </p>
-              {accept && (
+                ) : (
+                  <File className="h-5 w-5 text-muted-foreground" />
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-1">
+                  <p className="truncate text-sm font-medium">{file.name}</p>
+                  {file.status === "success" && (
+                    <CheckCircle className="h-4 w-4 text-success" />
+                  )}
+                  {file.status === "error" && (
+                    <AlertCircle className="h-4 w-4 text-destructive" />
+                  )}
+                </div>
                 <p className="text-xs text-muted-foreground">
-                  Accepted formats: {accept}
+                  {(file.size / 1024).toFixed(2)} KB
                 </p>
-              )}
+              </div>
             </div>
-          </div>
-        </div>
 
-        {error && (
-          <div className="flex items-center gap-2 rounded-md bg-destructive/10 p-2 text-sm text-destructive">
-            <AlertCircle className="h-4 w-4" />
-            {error}
+            {file.status === "uploading" ? (
+              renderProgress ? (
+                renderProgress(file)
+              ) : (
+                <Progress value={file.progress} className="h-2 w-20" />
+              )
+            ) : !hideRemoveButton ? (
+              renderRemoveButton ? (
+                renderRemoveButton(file)
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8"
+                  onClick={() => onRemove?.(file)}
+                  disabled={isLoading}
+                >
+                  <X className="h-4 w-4" />
+                  <span className="sr-only">Remove file</span>
+                </Button>
+              )
+            ) : null}
           </div>
-        )}
-
-        {showPreview && files.length > 0 && (
-          <div className="space-y-2">
-            {files.map((file) => (
-              <FilePreview
-                key={file.name}
-                file={file}
-                onRemove={() => handleRemove(file)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  },
-);
-
-FileUpload.displayName = "FileUpload";
+        ),
+      )}
+    </div>
+  );
+}
