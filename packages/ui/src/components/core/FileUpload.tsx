@@ -2,17 +2,19 @@
 
 import * as React from "react";
 
+import {
+  ArchiveIcon,
+  CodeIcon,
+  ExcelIcon,
+  PDFIcon,
+  PowerPointIcon,
+  TextIcon,
+  WordIcon,
+} from "../icons";
 import { File, UploadCloud, X } from "lucide-react";
 
-import { ArchiveIcon } from "../icons/ArchiveIcon";
 import { Button } from "../ui/button";
-import { CodeIcon } from "../icons/CodeIcon";
-import { ExcelIcon } from "../icons/ExcelIcon";
-import { PdfIcon } from "../icons/PdfIcon";
-import { PowerPointIcon } from "../icons/PowerPointIcon";
 import { Progress } from "../ui/progress";
-import { TextIcon } from "../icons/TextIcon";
-import { WordIcon } from "../icons/WordIcon";
 import { cn } from "../../lib/utils";
 import { useDropzone } from "react-dropzone";
 
@@ -56,7 +58,7 @@ const FileTypeIcon = ({
 }) => {
   // Document types
   if (type.includes("pdf")) {
-    return <PdfIcon className={className} />;
+    return <PDFIcon className={className} />;
   }
 
   if (
@@ -308,8 +310,8 @@ export function FileList({
   onRemove,
   isLoading,
   renderFile,
-  renderRemoveButton,
-  renderProgress,
+  // renderRemoveButton,
+  // renderProgress,
   hideRemoveButton = false,
   className,
   ...props

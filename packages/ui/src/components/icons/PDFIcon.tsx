@@ -1,8 +1,8 @@
-interface PdfIconProps {
+interface PDFIconProps {
   className?: string;
 }
 
-export const PdfIcon = ({ className }: PdfIconProps) => (
+export const PDFIcon = ({ className }: PDFIconProps) => (
   <svg
     className={className}
     viewBox="0 0 512 512"
