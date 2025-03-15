@@ -6,7 +6,7 @@ import {
   ArchiveIcon,
   CodeIcon,
   ExcelIcon,
-  PdfIcon,
+  PDFIcon,
   PowerPointIcon,
   TextIcon,
   WordIcon,
@@ -58,7 +58,7 @@ const FileTypeIcon = ({
 }) => {
   // Document types
   if (type.includes("pdf")) {
-    return <PdfIcon className={className} />;
+    return <PDFIcon className={className} />;
   }
 
   if (
