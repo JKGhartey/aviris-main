@@ -11,39 +11,14 @@ import { getComponent, getComponentIds } from "~/config/registry";
 import { Button } from "@aviris/ui/components/ui/button";
 import { ComponentDependencies } from "~/components/docs/ComponentDependencies";
 import { ComponentHeader } from "~/components/docs/ComponentHeader";
+import { ComponentPreview } from "~/components/previews/ComponentPreview";
 import { ComponentProps } from "~/components/docs/ComponentProps";
 import { DocsPager } from "~/components/DocsPager";
 import { ExternalLink } from "lucide-react";
-import dynamic from "next/dynamic";
-import { routes } from "~/constants/routes";
 
 interface ComponentTemplateProps {
   componentId: string;
 }
-
-// Dynamic imports for preview components
-const previewComponents: Record<string, React.ComponentType> = {
-  "file-upload": dynamic(() =>
-    import("~/components/previews/FileUploadPreview").then(
-      (mod) => mod.FileUploadPreview,
-    ),
-  ),
-  "folder-structure": dynamic(() =>
-    import("~/components/previews/FolderStructurePreview").then(
-      (mod) => mod.FolderStructurePreview,
-    ),
-  ),
-  "floating-action-bar": dynamic(() =>
-    import("~/components/previews/FloatingActionBarPreview").then(
-      (mod) => mod.FloatingActionBarPreview,
-    ),
-  ),
-  notifications: dynamic(() =>
-    import("~/components/previews/NotificationsPreview").then(
-      (mod) => mod.NotificationsPreview,
-    ),
-  ),
-};
 
 export default function ComponentTemplate({
   componentId,
@@ -59,7 +34,6 @@ export default function ComponentTemplate({
   }
 
   const hasDependencies = (component.metadata?.dependencies ?? []).length > 0;
-  const PreviewComponent = previewComponents[componentId];
 
   // Get navigation items
   const allComponentIds = getComponentIds();
@@ -89,13 +63,11 @@ export default function ComponentTemplate({
         </TabsList>
 
         <TabsContent value="preview" className="space-y-4">
-          {PreviewComponent && (
-            <div className="rounded-lg border">
-              <div className="p-6">
-                <PreviewComponent />
-              </div>
+          <div className="rounded-lg border">
+            <div className="p-6">
+              <ComponentPreview componentId={componentId} />
             </div>
-          )}
+          </div>
 
           {component.metadata?.sourceUrl && (
             <Button
