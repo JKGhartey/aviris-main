@@ -2,21 +2,21 @@
 
 import * as React from "react";
 
-import {
-  ArchiveIcon,
-  CodeIcon,
-  ExcelIcon,
-  PdfIcon,
-  PowerPointIcon,
-  TextIcon,
-  WordIcon,
-} from "../icons";
-import { File, FileText, UploadCloud, X } from "lucide-react";
+import { File, UploadCloud, X } from "lucide-react";
 
+import { ArchiveIcon } from "../icons/ArchiveIcon";
 import { Button } from "../ui/button";
+import { CodeIcon } from "../icons/CodeIcon";
+import { ExcelIcon } from "../icons/ExcelIcon";
+import { PdfIcon } from "../icons/PdfIcon";
+import { PowerPointIcon } from "../icons/PowerPointIcon";
 import { Progress } from "../ui/progress";
+import { TextIcon } from "../icons/TextIcon";
+import { WordIcon } from "../icons/WordIcon";
 import { cn } from "../../lib/utils";
 import { useDropzone } from "react-dropzone";
+
+// Import icons individually to avoid potential path issues
 
 export type FileStatus = "idle" | "uploading" | "success" | "error";
 
