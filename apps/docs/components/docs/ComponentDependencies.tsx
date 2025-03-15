@@ -1,6 +1,7 @@
 import { ComponentDoc } from "~/config/types";
-import { cn } from "@aviris/ui/lib/utils";
 import { CopyButton } from "@aviris/ui/components/copy-button";
+import { Package } from "lucide-react";
+import { cn } from "@aviris/ui/lib/utils";
 
 interface ComponentDependenciesProps {
   component: ComponentDoc;
@@ -12,49 +13,33 @@ export function ComponentDependencies({
   className,
 }: ComponentDependenciesProps) {
   const { metadata } = component;
+  const dependencies = metadata?.dependencies || [];
 
-  if (!metadata?.dependencies?.length) {
-    return null;
+  if (!dependencies.length) {
+    return (
+      <div className="p-6 text-center text-sm text-muted-foreground">
+        No dependencies required for this component.
+      </div>
+    );
   }
 
-  const npmInstall = `npm install ${metadata.dependencies.join(" ")}`;
-  const yarnAdd = `yarn add ${metadata.dependencies.join(" ")}`;
-  const pnpmAdd = `pnpm add ${metadata.dependencies.join(" ")}`;
+  const npmInstall = `npm install ${dependencies.join(" ")}`;
 
   return (
-    <div className={cn("space-y-6", className)}>
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold tracking-tight">Dependencies</h2>
+    <div className={cn("space-y-4 p-6", className)}>
+      <div className="flex items-center gap-2 rounded-md bg-muted/50 px-4 py-3 text-sm">
+        <Package className="h-4 w-4 text-muted-foreground" />
+        <code className="text-muted-foreground">{npmInstall}</code>
+        <div className="flex-1" />
+        <CopyButton value={npmInstall} />
       </div>
-      <div className="space-y-4 rounded-lg border p-4">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-medium">npm</p>
-            <CopyButton value={npmInstall} />
-          </div>
-          <pre className="mt-2 rounded-md bg-muted p-4">
-            <code className="text-sm">{npmInstall}</code>
-          </pre>
-        </div>
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-medium">yarn</p>
-            <CopyButton value={yarnAdd} />
-          </div>
-          <pre className="mt-2 rounded-md bg-muted p-4">
-            <code className="text-sm">{yarnAdd}</code>
-          </pre>
-        </div>
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-medium">pnpm</p>
-            <CopyButton value={pnpmAdd} />
-          </div>
-          <pre className="mt-2 rounded-md bg-muted p-4">
-            <code className="text-sm">{pnpmAdd}</code>
-          </pre>
-        </div>
-      </div>
+      <ul className="grid gap-2 text-sm text-muted-foreground">
+        {dependencies.map((dep) => (
+          <li key={dep} className="flex items-center gap-2">
+            <span className="font-medium">{dep}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

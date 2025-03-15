@@ -11,7 +11,11 @@ export function ComponentProps({ component, className }: ComponentPropsProps) {
   const { props } = component;
 
   if (!props?.length) {
-    return null;
+    return (
+      <div className="p-6 text-center text-sm text-muted-foreground">
+        No props available for this component.
+      </div>
+    );
   }
 
   // Convert ComponentDoc props to APITable props format
@@ -25,11 +29,12 @@ export function ComponentProps({ component, className }: ComponentPropsProps) {
   }));
 
   return (
-    <div className={cn("space-y-6", className)}>
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold tracking-tight">Props</h2>
-      </div>
-      <ApiTable properties={apiTableProps} showDefault={true} />
+    <div className={cn("p-6", className)}>
+      <ApiTable
+        properties={apiTableProps}
+        showDefault={true}
+        className="[&_td:first-child]:font-mono [&_td:first-child]:text-sm [&_td:nth-child(2)]:font-mono [&_td:nth-child(2)]:text-xs [&_td:nth-child(2)]:text-muted-foreground"
+      />
     </div>
   );
 }

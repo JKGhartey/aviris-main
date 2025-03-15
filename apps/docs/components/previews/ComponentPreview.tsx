@@ -284,7 +284,7 @@ export function ComponentPreview({ componentId }: ComponentPreviewProps) {
 
     default:
       return (
-        <div className="flex h-[200px] items-center justify-center rounded-lg border">
+        <div className="flex h-[200px] items-center justify-center rounded-lg">
           <p className="text-muted-foreground">Preview not available</p>
         </div>
       );
