@@ -6,7 +6,6 @@ import {
   ArchiveIcon,
   CodeIcon,
   ExcelIcon,
-  PDFIcon,
   PowerPointIcon,
   TextIcon,
   WordIcon,
@@ -14,6 +13,7 @@ import {
 import { File, UploadCloud, X } from "lucide-react";
 
 import { Button } from "../ui/button";
+import { PDFIcon } from "../icons/PdfIcon";
 import { Progress } from "../ui/progress";
 import { cn } from "../../lib/utils";
 import { useDropzone } from "react-dropzone";

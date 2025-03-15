@@ -5,4 +5,3 @@ export * from "./PowerPointIcon";
 export * from "./ArchiveIcon";
 export * from "./CodeIcon";
 export * from "./TextIcon";
-export * from "./PDFIcon";
