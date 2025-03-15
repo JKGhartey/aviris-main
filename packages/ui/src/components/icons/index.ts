@@ -1,5 +1,5 @@
 // Export all icons
-// export * from "./PdfIcon";
+export * from "./PdfIcon";
 export * from "./WordIcon";
 export * from "./ExcelIcon";
 export * from "./PowerPointIcon";
