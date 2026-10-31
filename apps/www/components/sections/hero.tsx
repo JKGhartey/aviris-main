@@ -3,7 +3,6 @@
 import { CustomBadge } from "~/components/custom-badge";
 import { CustomButton } from "@aviris/ui/components/custom-button";
 import Link from "next/link";
-import { Stats } from "@aviris/ui/components/stats";
 import { Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { routes } from "~/constants/routes";
@@ -55,29 +54,6 @@ const titleWord = {
     },
   },
 };
-
-const stats = [
-  {
-    label: "Components",
-    value: "50+",
-    description: "Ready-to-use UI components",
-  },
-  {
-    label: "Code Examples",
-    value: "100+",
-    description: "With TypeScript support",
-  },
-  {
-    label: "Documentation",
-    value: "95%",
-    description: "Coverage with examples",
-  },
-  {
-    label: "Updates",
-    value: "24/7",
-    description: "Continuous improvements",
-  },
-];
 
 export function Hero() {
   return (
@@ -205,19 +181,6 @@ export function Hero() {
               </CustomButton>
             </Link>
           </motion.div>
-
-          {/* Stats Section */}
-          <div className="w-full mt-12 animate-fade-in">
-            <Stats
-              stats={stats}
-              variant="grid"
-              className="max-w-4xl mx-auto"
-              valueClassName="bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent text-3xl font-bold"
-              labelClassName="font-medium text-base text-foreground/80"
-              descriptionClassName="text-muted-foreground/70"
-              itemClassName="backdrop-blur-sm rounded-lg p-4 border border-primary/5"
-            />
-          </div>
         </motion.div>
       </div>
     </section>
