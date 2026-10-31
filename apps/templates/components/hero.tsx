@@ -11,18 +11,18 @@ import { routes } from "~/constants/routes";
 const features = [
   {
     icon: Code,
-    title: "Production Ready",
-    description: "Built with best practices and modern tools",
+    title: "Built on Aviris UI",
+    description: "Uses the same components as the docs",
   },
   {
     icon: Layout,
-    title: "Beautiful UI",
-    description: "Modern and responsive designs",
+    title: "Next.js and TypeScript",
+    description: "App Router, strict types and Tailwind",
   },
   {
     icon: Zap,
-    title: "Fast & Efficient",
-    description: "Optimized for performance",
+    title: "Code you own",
+    description: "Clone it and change anything",
   },
 ];
 
@@ -61,24 +61,14 @@ export function Hero() {
             className="w-full lg:w-1/2 text-center lg:text-left"
           >
             <div className="mt-0">
-              <motion.a href="#" className="inline-flex space-x-6 group">
+              <div className="inline-flex space-x-6">
                 <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold leading-6 text-primary ring-1 ring-inset ring-primary/20">
-                  What's new
+                  Status
                 </span>
-                <span className="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-muted-foreground">
-                  <span>Just shipped v1.0</span>
-                  <motion.span
-                    animate={{ x: [0, 4, 0] }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <ArrowRight className="h-5 w-5" aria-hidden="true" />
-                  </motion.span>
+                <span className="inline-flex items-center text-sm font-medium leading-6 text-muted-foreground">
+                  In progress, not released yet
                 </span>
-              </motion.a>
+              </div>
             </div>
             <div className="mx-auto max-w-xl">
               <h1 className="mt-6 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
@@ -91,9 +81,9 @@ export function Hero() {
                 </span>
               </h1>
               <p className="mt-4 text-base sm:text-lg leading-7 sm:leading-8 text-muted-foreground lg:mx-0">
-                A collection of production-ready templates to help you build
-                your next application. Each template is designed with best
-                practices and includes essential configurations.
+                Starter templates built on Aviris UI are in progress. None are
+                released yet, so there are no demos or source links. The
+                components and their docs are ready to use today.
               </p>
             </div>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
@@ -104,7 +94,7 @@ export function Hero() {
               >
                 <Link href="#templates" className="relative z-10">
                   <span className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  Browse Templates
+                  See What's Planned
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
                 </Link>
               </CustomButton>
