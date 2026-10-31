@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaXTwitter, FaGithub, FaDiscord } from "react-icons/fa6";
+import { FaXTwitter, FaGithub } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
 const container = {
@@ -64,7 +64,7 @@ export function Footer() {
               </Link>
               . The source code is available on{" "}
               <Link
-                href="https://github.com/jkghartey/aviris"
+                href="https://github.com/JKGhartey/aviris-main"
                 className="font-medium underline underline-offset-4 hover:text-foreground"
               >
                 GitHub
@@ -79,7 +79,7 @@ export function Footer() {
               className="rounded-lg overflow-hidden"
             >
               <Link
-                href="https://github.com/jkghartey/aviris"
+                href="https://github.com/JKGhartey/aviris-main"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center justify-center w-10 h-10 text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
@@ -101,21 +101,6 @@ export function Footer() {
               >
                 <FaXTwitter className="h-5 w-5" />
                 <span className="sr-only">X (Twitter)</span>
-              </Link>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              className="rounded-lg overflow-hidden"
-            >
-              <Link
-                href="https://discord.gg/your-invite-code"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-center w-10 h-10 text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
-              >
-                <FaDiscord className="h-5 w-5" />
-                <span className="sr-only">Discord</span>
               </Link>
             </motion.div>
           </motion.div>
