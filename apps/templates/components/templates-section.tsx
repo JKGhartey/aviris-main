@@ -34,7 +34,7 @@ export function TemplatesSection() {
             className="inline-block"
           >
             <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold leading-6 text-primary ring-1 ring-inset ring-primary/20">
-              Available Templates
+              Planned
             </span>
           </motion.div>
           <motion.h2
@@ -45,7 +45,7 @@ export function TemplatesSection() {
             className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight"
           >
             <span className="bg-gradient-to-r from-primary via-primary/80 to-primary text-transparent bg-clip-text">
-              Choose Your Template
+              What's Planned
             </span>
           </motion.h2>
           <motion.p
@@ -55,8 +55,8 @@ export function TemplatesSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-4 sm:mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto"
           >
-            Each template is designed to help you get started quickly with a
-            production-ready foundation.
+            These are the starters on the roadmap. None of them are released
+            yet.
           </motion.p>
         </div>
 
