@@ -127,8 +127,7 @@ export default function LoginForm() {
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
             <li>Explore the components in the documentation</li>
             <li>Learn about customizing components and themes</li>
-            <li>Check out the example applications</li>
-            <li>Join our Discord community for support</li>
+            <li>Open an issue on GitHub if something doesn&apos;t work</li>
           </ul>
         </div>
       </div>
