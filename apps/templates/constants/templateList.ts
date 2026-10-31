@@ -12,8 +12,6 @@ export const templates = [
       "Database integration",
       "API routes structure",
     ],
-    githubUrl: "https://github.com/aviris/templates/tree/main/web-app",
-    demoUrl: "/templates/web-app",
     tags: ["Next.js", "TypeScript", "Tailwind", "Auth"],
   },
   {
@@ -29,8 +27,6 @@ export const templates = [
       "Code highlighting",
       "Version control",
     ],
-    githubUrl: "https://github.com/aviris/templates/tree/main/docs",
-    demoUrl: "/templates/docs",
     tags: ["MDX", "Search", "Dark Mode"],
   },
   {
@@ -46,8 +42,6 @@ export const templates = [
       "Real-time updates",
       "Responsive design",
     ],
-    githubUrl: "https://github.com/aviris/templates/tree/main/dashboard",
-    demoUrl: "/templates/dashboard",
     tags: ["Admin", "Analytics", "RBAC"],
   },
 ];
