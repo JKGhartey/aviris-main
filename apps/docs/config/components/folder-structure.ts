@@ -31,7 +31,7 @@ const folderStructureConfig: ComponentDoc = {
   ],
   metadata: {
     sourceUrl:
-      "https://github.com/aviris/aviris/tree/main/packages/ui/src/components/core/FolderStructure.tsx",
+      "https://github.com/JKGhartey/aviris-main/blob/main/packages/ui/src/components/core/FolderStructure.tsx",
     package: "@aviris/ui",
     version: "0.1.0",
   },
