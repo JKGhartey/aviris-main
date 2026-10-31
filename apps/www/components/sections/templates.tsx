@@ -4,6 +4,7 @@ import { SectionHeader } from "@aviris/ui/components/section-header";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { routes } from "~/constants/routes";
 import {
   SiNextdotjs,
   SiTailwindcss,
@@ -77,7 +78,7 @@ export function Templates() {
           />
           <div className="flex items-center justify-center gap-4 pt-4">
             <Link
-              href="/templates"
+              href={routes.templates as string}
               className="inline-flex items-center justify-center rounded-md bg-muted px-4 py-2 text-sm font-medium transition-colors hover:bg-muted/80"
             >
               View all templates
