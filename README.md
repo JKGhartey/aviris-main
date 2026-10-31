@@ -1,122 +1,88 @@
-# Aviris UI Component Library
+# Aviris UI
 
-![Static Badge](https://img.shields.io/badge/React-18.x-blue)
-![Static Badge](https://img.shields.io/badge/TypeScript-5.x-blue)
-![Static Badge](https://img.shields.io/badge/shadcn%2Fui-2.1.2-blue?link=https%3A%2F%2Fgithub.com%2Fshadcn%2Fui)
-![Static Badge](https://img.shields.io/badge/Turborepo-latest-blue)
+![React](https://img.shields.io/badge/React-18-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![Turborepo](https://img.shields.io/badge/Turborepo-2-blue)
 
-A modern, accessible, and customizable React component library built with shadcn/ui and Turborepo.
+A React component library built on [shadcn/ui](https://ui.shadcn.com) and Tailwind CSS, set up as a Turborepo monorepo with a landing page, a docs site and a templates app.
 
-## 🌟 Features
+## Live sites
 
-- 🎨 Modern and customizable UI components
-- 📱 Fully responsive design
-- ♿ Accessibility first
-- 🚀 Powered by shadcn/ui
-- 🔧 Built with TypeScript
-- 📦 Monorepo architecture with Turborepo
-- 🎯 Zero-runtime CSS with Tailwind
-- 📄 Comprehensive documentation
+- Landing page: https://aviris-ui.vercel.app
+- Docs: https://aviris-main-docs.vercel.app
+- Templates: https://aviris-main-templates.vercel.app (planned starters only, none released yet)
 
-## 📦 Packages
+## Components
 
-This monorepo includes the following packages:
+Custom components live in `packages/ui/src/components/core`:
 
-- `@aviris/ui`: Core React component library
-- `@aviris/eslint-config`: Shared ESLint configurations
-- `@aviris/typescript-config`: Shared TypeScript configurations
-- `docs`: Next.js documentation site
+- **FileUpload**: drag and drop upload with file validation, previews and file-type icons
+- **FolderStructure**: a collapsible file and folder tree
+- **FloatingActionBar**: a floating bar that expands to show more actions
+- **Notifications**: a notification stack with variants and a `useNotifications` hook
+- **APITable**: the props table the docs use for every component
 
-## 🚀 Getting Started
+They sit on top of shadcn/ui primitives (button, dialog, tabs, table, tooltip, sheet and others) in `packages/ui/src/components/ui`. Each component has a page in the docs with a live preview and its props.
 
-### Installation
+## What's in the repo
+
+```
+apps/
+├── www/         landing page (port 3000)
+├── docs/        component docs and guides (port 3001)
+└── templates/   templates app (port 3002)
+packages/
+├── ui/                  components, theme and shared styles
+├── seo/                 shared metadata helpers for the three apps
+├── eslint-config/
+└── typescript-config/
+```
+
+## Getting started
+
+Requires Node 20.17+ and pnpm 9.
 
 ```bash
-# Clone the repository
-git clone https://github.com/aviris/aviris-ui.git
-
-# Install dependencies
-cd aviris-ui
+git clone https://github.com/JKGhartey/aviris-main.git
+cd aviris-main
 pnpm install
+
+pnpm dev     # runs all three apps
+pnpm build   # builds all apps and packages
+pnpm lint
 ```
 
-### Development
+In development the apps link to each other on localhost. In production they read these environment variables:
+
+| App | Variables |
+| --- | --- |
+| www | `NEXT_PUBLIC_APP_DOCS_URL`, `NEXT_PUBLIC_APP_TEMPLATES_URL` |
+| docs | `NEXT_PUBLIC_APP_LANDING_URL`, `NEXT_PUBLIC_APP_TEMPLATES_URL` |
+| templates | `NEXT_PUBLIC_APP_DOCS_URL`, `NEXT_PUBLIC_APP_LANDING_PAGE_URL` |
+
+### Adding a shadcn/ui component
 
 ```bash
-# Start development server
-pnpm dev
-
-# Build all packages
-pnpm build
-
-# Run tests
-pnpm test
-```
-
-## 🔧 Development Tools
-
-This project uses several development tools:
-
-- [TypeScript](https://www.typescriptlang.org/) for type safety
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-- [Turborepo](https://turbo.build/repo) for monorepo management
-- [shadcn/ui](https://ui.shadcn.com) for component foundations
-
-### Adding New Components
-
-```bash
-# Add a new shadcn/ui component
 pnpm ui add <component-name>
-
-# Create a new workspace
-pnpm turbo gen workspace --name <workspace-name>
 ```
 
-### Remote Caching
+This runs the shadcn CLI inside `packages/ui`.
 
-Enable remote caching with Vercel:
+## CLI
 
-```bash
-# Login to Vercel
-npx turbo login
+The installer that copies components into your own project lives in a separate repo: [aviris-cli](https://github.com/JKGhartey/aviris-cli).
 
-# Link to remote cache
-npx turbo link
-```
+## Contributing
 
-## 🤝 Contributing
+Issues and pull requests are welcome. See the [contributing guide](https://aviris-main-docs.vercel.app/guides/contributing) in the docs, or [open an issue](https://github.com/JKGhartey/aviris-main/issues).
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+## Credits
 
-### Development Workflow
+The monorepo setup started from [dan5py/turborepo-shadcn-ui](https://github.com/dan5py/turborepo-shadcn-ui) (MIT).
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+## License
 
-## 📄 License
+MIT. See [LICENSE](LICENSE).
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🔗 Useful Links
-
-- [Turborepo Documentation](https://turbo.build/repo/docs)
-- [shadcn/ui Documentation](https://ui.shadcn.com/docs)
-- [React Documentation](https://react.dev)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs)
-
-## 👥 Team
-
-The Aviris UI library is maintained by the Aviris team. We're committed to creating high-quality, accessible React components for modern web applications.
-
-## 💬 Support
-
-- 📧 Email: support@aviris.com
-- 💻 GitHub Issues: [Create an issue](https://github.com/aviris/aviris-ui/issues)
-- 📝 Documentation: [View docs](https://docs.aviris.com)
-
----
-
-Built with ❤️ by the Aviris team
+Built by [Jerome Ghartey](https://jeromeghartey1.vercel.app).
