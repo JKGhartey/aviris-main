@@ -167,7 +167,6 @@ export function Component({ className, ...props }: ComponentProps) {
             If you need help or have questions:
           </p>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-            <li>Join our Discord community</li>
             <li>Open a discussion on GitHub</li>
             <li>Check existing issues and pull requests</li>
           </ul>
